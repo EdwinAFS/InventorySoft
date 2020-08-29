@@ -1,0 +1,8 @@
+Options All -Indexes
+
+RewriteEngine On
+
+
+RewriteRule ^([-a-zA-Z0-9/?]+)/(\w+)$ index.php?ruta=$1&method=$2
+
+RewriteRule ^([-a-zA-Z0-9/?]+)$ index.php?ruta=$1&method=index
