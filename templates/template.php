@@ -1,5 +1,5 @@
 <?php
-session_start();
+	session_start();
 ?>
 
 <!DOCTYPE html>
@@ -44,32 +44,10 @@ session_start();
 	) {
 		echo "<div class='wrapper'>";
 
-		include "generals/header.php";
-
-		$rutas = [
-			"main",
-			"sales",
-			"customers",
-			"users",
-			"categories",
-			"products",
-		];
-
-		if (isset($_GET["ruta"]) && in_array($_GET["ruta"], $rutas)) {
-			include "modules/{$_GET["ruta"]}/{$_GET["ruta"]}.php";
-		} else if (isset($_GET["ruta"]) && $_GET["ruta"] == "logout") {
-			session_destroy();
-			echo "
-				<script>
-					window.location = 'main';
-				</script>
-			";
-		} else {
-			include "generals/errors/404.php";
-		}
-
-		include "generals/sidebar.php";
-		include "generals/footer.php";
+			include "generals/header.php";
+			include($path);
+			include "generals/sidebar.php";
+			include "generals/footer.php";
 
 		echo "</div>";
 	} else {
