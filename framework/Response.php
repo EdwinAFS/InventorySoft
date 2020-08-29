@@ -1,8 +1,8 @@
 <?php
 
-require_once "models/Config.php";
+require_once "../config/Config.php";
 
-class View
+class Response
 {
 	function __construct(){
 	}
@@ -10,7 +10,7 @@ class View
 	static public function render($name, $vars = array())
 	{
 		//Armamos la ruta a la plantilla
-		$path = Config::get('viewsFolder') . $name;
+		$path = Config::get('views') . $name;
 
 		//Si no existe el fichero en cuestion, tiramos un 404
 		if (file_exists($path) == false) {
@@ -26,13 +26,13 @@ class View
 		}
 
 		//Finalmente, incluimos la plantilla.
-		include(Config::get('viewsFolder')."html/template.php");
+		include(Config::get('templates')."template.php");
 	}
 
 	static public function show($name, $vars = array())
 	{
 		//Armamos la ruta a la plantilla
-		$path = Config::get('viewsFolder') . $name;
+		$path = Config::get('views') . $name;
 
 		//Si no existe el fichero en cuestion, tiramos un 404
 		if (file_exists($path) == false) {
@@ -51,9 +51,15 @@ class View
 		include($path);
 	}
 
+	static public function json( $json, $httpStatus = 200){
+		
+		header_remove();
+
+		header("Content-Type: application/json");
+
+		http_response_code($httpStatus);
+
+		echo json_encode($json);
+
+	}
 }
-/*
- El uso es bastante sencillo:
- $vista = new View();
- $vista->show('listado.php', array("nombre" => "Juan"));
-*/

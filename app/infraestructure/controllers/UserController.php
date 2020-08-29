@@ -1,5 +1,7 @@
 <?php
-require "./models/User.php";
+require_once "framework/Config.php";
+require_once "framework/Response.php";
+require Config::get("models")."User.php";
 
 class UserController{
 	
@@ -12,28 +14,24 @@ class UserController{
 
 			$user = User::verifyLogin( $username, $password );
 
-			if( $user ){
-				
-				$_SESSION["iniciarSesion"] = "ok";
-				$_SESSION["name"] = $user["name"];
-				$_SESSION["username"] = $user["username"];
-				$_SESSION["photo"] = $user["photo"];
-
-				echo"
-					<script>
-						window.location = 'main';
-					</script>
-				";
-
-			}else{
-				echo "
-					<div class='alert alert-danger' role='alert'>
-						Credenciales incorrectas!
-					</div>
-				";
+			if( ! $user ){
+				return Response::json( [
+					'message' => 'Credenciales incorrectas.'
+				] , 401);
 			}
 
-		} 
+			$_SESSION["isAuth"] = true;
+			$_SESSION["name"] = $user["name"];
+			$_SESSION["username"] = $user["username"];
+			$_SESSION["photo"] = $user["photo"];
+
+			return Response::render("main/main.php");
+
+		}
+		
+		return Response::json( [
+			'message' => 'ingrese las credenciales correctamente.'
+		], 400);
 
 	}
 
@@ -51,63 +49,34 @@ class UserController{
 	}
 
 	public function createUser(){
-		echo "<script>console.log(".isset($_POST['username']).")</script>";
-		echo "<script>console.log('asdsad')</script>";
 
-		if( isset($_POST["username"]) ){
-			if(
-				preg_match('/^[a-zA-Z0-9ñÑáéíóúáéíóúÁÉÍÓÚ ]+$/', $_POST["name"]) &&
-				preg_match('/^[a-zA-Z0-9_]+$/', $_POST["username"]) &&
-				preg_match('/^[a-zA-Z0-9_]+$/', $_POST["password"])
-			){
-				
-				$photoURL = "";
+		if(
+			preg_match('/^[a-zA-Z0-9ñÑáéíóúáéíóúÁÉÍÓÚ ]+$/', $_POST["name"]) &&
+			preg_match('/^[a-zA-Z0-9_]+$/', $_POST["username"]) &&
+			preg_match('/^[a-zA-Z0-9_]+$/', $_POST["password"])
+		){
+			$photoURL = "";
 
-				if( isset($_FILES["photo"]["tmp_name"]) ){
-					$photoURL = $this->attachmentPhoto( $_FILES["photo"], $_POST["username"] );
-				}
-
-				$user = User::create($_POST["name"], $_POST["username"], $_POST["password"], $photoURL);
-
-				if( $user == "ok" ){
-					echo "
-						<script>
-							Swal.fire({
-								icon: 'success',
-								title: 'Oops...',
-								text: 'Se creo un nuevo usuario.'
-							}).then((resp)=>{
-								if( resp.value ) window.location = 'users';
-							});
-						</script>
-					";
-				}else{
-					echo "
-						<script>
-							Swal.fire({
-								icon: 'error',
-								title: 'Oops...',
-								text: 'Error al crear un usuario.'
-							}).then((resp)=>{
-								if( resp.value ) window.location = 'users';
-							});
-						</script>
-					";
-				}
-
-			}else{
-				echo "
-					<script>
-						Swal.fire({
-							icon: 'error',
-							title: 'Oops...',
-							text: 'Por favor, Ingrese los datos correctamente.'
-						}).then((resp)=>{
-							if( resp.value ) window.location = 'users';
-						});
-					</script>
-				";
+			if( isset($_FILES["photo"]["tmp_name"]) ){
+				$photoURL = $this->attachmentPhoto( $_FILES["photo"], $_POST["username"] );
 			}
+
+			$user = User::create($_POST["name"], $_POST["username"], $_POST["password"], $photoURL);
+
+			if( $user == "ok" ){
+				return Response::json( [
+					'message' => 'Se creo el usuario correctamente.'
+				] , 201);
+			}else{
+				return Response::json( [
+					'message' => 'Ocurrio un error cuando se intentaba crear un usuario.'
+				] , 500);
+			}
+
+		}else{
+			return Response::json( [
+				'message' => 'ingrese los datos correctamente.'
+			] , 400);
 		}
 	}
 
@@ -118,7 +87,7 @@ class UserController{
 		$heightPhoto = 500;
 		$widthPhoto = 500;
 
-		$directory = "views/public/img/profile/{$folderName}";
+		$directory = Config::get("storage")."uploads/avatar/{$folderName}";
 
 		mkdir($directory, 0755);
 
@@ -143,7 +112,7 @@ class UserController{
 	}
 
 	public function index(){
-		return User::users();
+		return Response::render("users/users.php", [ 'users' => User::users() ]);
 	}
 
 	public function getUserById(){

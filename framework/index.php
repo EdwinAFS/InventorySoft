@@ -4,24 +4,24 @@ class FrontController
 {
 	static function run()
 	{
-		require 'config.php';
-		require 'models/view.php';
+		require 'Config.php';
+		require 'Response.php';
 
 		$controllerName = self::getNameController();
 		$methodName = self::getNameMethod();
 
-		$controllerPath = Config::get('controllersFolder') . $controllerName . '.php';
+		$controllerPath = Config::get('controllers') . $controllerName . '.php';
 
 		//Incluimos el fichero que contiene nuestra clase controladora solicitada
 		if (is_file($controllerPath))
 			require $controllerPath;
 		else
-			View::render("html/generals/errors/404.php");
+			return Response::render("errors/404.php");
 
 		//Si no existe la clase que buscamos y su acción, tiramos un error 404
 		if (method_exists($controllerName, $methodName) == false) {
 
-			View::render("html/generals/errors/404.php");
+			return Response::render("errors/404.php");
 
 			//trigger_error($controllerName . ' => ' . $methodName . ' no existe', E_USER_NOTICE);
 			return false;

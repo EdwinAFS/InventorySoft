@@ -1,5 +1,5 @@
 <?php
-require_once 'models/view.php';
+require_once 'framework/Response.php';
 
 class HomeController{
 	
@@ -11,7 +11,7 @@ class HomeController{
 
 		
 
-		View::render("html/modules/main/main.php");
+		Response::render("main/main.php");
 	}
 
 }
