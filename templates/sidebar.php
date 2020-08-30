@@ -6,7 +6,7 @@
 	<!-- Logo -->
 	<a href="#" class="brand-link">
 		<img 
-			src="views/public/img/logo.png"
+			src="public/img/logo.png"
         	alt="Inventario logo"
 			class="brand-image img-circle elevation-3"
 		>
@@ -19,13 +19,13 @@
 			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 					
 				<li class="nav-item">
-					<a href="main" class="nav-link">
+					<a href="Home" class="nav-link">
 						<i class="nav-icon fas fa-home"></i>
 						<p> Inicio </p>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="users" class="nav-link">
+					<a href="user" class="nav-link">
 						<i class="nav-icon far fa-user"></i>
 						<p> Usuarios </p>
 					</a>

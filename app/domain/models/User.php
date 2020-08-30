@@ -1,6 +1,6 @@
 <?php 
 
-require_once "Connection.php";
+require_once "../framework/Connection.php";
 
 class User{
 

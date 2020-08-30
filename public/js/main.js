@@ -42,3 +42,29 @@ $(".dataTable").DataTable({
 
 	}
 });
+
+function convertJsonToForm( json ){
+	var form_data = new FormData();
+
+	for ( var key in json ) {
+		form_data.append(key, json[key]);
+	}
+
+	return form_data;
+}
+
+
+$("#logout").click(function () {
+
+	fetch("./login/logout")
+	.then((res) => res.json())
+	.catch((error) => AlertError(error))
+	.then((response) => {
+		if(response.error){
+			AlertError(response.message);
+		}else{
+			window.location.href =  response.url;
+		}
+	});
+	
+});

@@ -47,10 +47,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php 
-							$userController = new UserController();
-							
-							foreach ($userController->index() as $user) {
+						<?php 						
+							foreach ($users as $user) {
 								echo "
 								<tr>
 									<td>{$user['id']}</td>
@@ -95,4 +93,4 @@
 </div>
 <!-- /.content-wrapper -->
 
-<script src="views/html/modules/Users/users.js"></script>
+<script src="views/Users/users.js"></script>

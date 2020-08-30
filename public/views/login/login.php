@@ -5,7 +5,7 @@
 		left: 0 !important;
 		width: 100% !important;
 		height: 100vh !important;
-		background: url(views/public/img/fondo-login.jpg) !important;
+		background: url(public/img/fondo-login.jpg) !important;
 		background-size: cover !important;
 		overflow: hidden !important;
 		z-index: 5 !important;
@@ -26,7 +26,7 @@
 				<form method="post">
 
 					<div class="input-group mb-3">
-						<input type="text" name="username" class="form-control" placeholder="Usuario" required>
+						<input type="text" name="username" id="username" class="form-control" placeholder="Usuario" required>
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-user"></span>
@@ -35,7 +35,7 @@
 					</div>
 
 					<div class="input-group mb-3">
-						<input type="password" name="password" class="form-control" placeholder="Contraseña" required>
+						<input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" required>
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-lock"></span>
@@ -45,7 +45,7 @@
 
 					<div class="row d-flex justify-content-center pt-2">
 						<div class="col-4">
-							<button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+							<button type="button" id="btnLogin" class="btn btn-primary btn-block">Ingresar</button>
 						</div>
 					</div>
 
@@ -54,12 +54,6 @@
 							<a href="forgot-password.html">Olvide mi contraseña</a>
 						</div>
 					</div>
-
-					<?php
-					$login = new UserController();
-					$login->login();
-					?>
-
 				</form>
 
 			</div>
@@ -67,3 +61,5 @@
 	</div>
 
 </div>
+
+<script src="public/views/login/login.js"></script>

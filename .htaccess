@@ -2,6 +2,13 @@ Options All -Indexes
 
 RewriteEngine On
 
-RewriteRule ^([-a-zA-Z0-9/?]+)/([-a-zA-Z0-9/?]+)$ framework/index.php?controller=$1&method=$2
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([-a-zA-Z0-9/?]+)/([-a-zA-Z0-9/?]+)$ framework/index.php?controller=$1&method=$2 [NC,QSA,L]
+RewriteRule ^([-a-zA-Z0-9/?]+)$ framework/index.php?controller=$1&method=index [NC,QSA,L]
+RewriteRule ^$ framework/index.php?controller=$1&method=$2 [NC,QSA,L]
 
-RewriteRule ^([-a-zA-Z0-9/?]+)$ framework/index.php?controller=$1&method=index
+
+
+
+

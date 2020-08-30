@@ -1,51 +1,12 @@
 <?php
-require_once "framework/Config.php";
-require_once "framework/Response.php";
+require_once "../framework/Config.php";
+require_once "../framework/Response.php";
 require Config::get("models")."User.php";
 
 class UserController{
-	
-	public function login(){
-		
-		if( $this->validateCredencials() ){
-			
-			$username = $_POST["username"];
-			$password = $_POST["password"];
 
-			$user = User::verifyLogin( $username, $password );
-
-			if( ! $user ){
-				return Response::json( [
-					'message' => 'Credenciales incorrectas.'
-				] , 401);
-			}
-
-			$_SESSION["isAuth"] = true;
-			$_SESSION["name"] = $user["name"];
-			$_SESSION["username"] = $user["username"];
-			$_SESSION["photo"] = $user["photo"];
-
-			return Response::render("main/main.php");
-
-		}
-		
-		return Response::json( [
-			'message' => 'ingrese las credenciales correctamente.'
-		], 400);
-
-	}
-
-	private function validateCredencials(){
-		
-		if( 
-			isset($_POST["username"]) &&
-			preg_match('/^[a-zA-Z0-9_]+$/', $_POST["username"]) &&
-			isset($_POST["password"]) &&
-			preg_match('/^[a-zA-Z0-9_]+$/', $_POST["password"])
-		){
-			return true;	
-		} 
-		return false;	
+	public function index(){
+		return Response::render("users/users.php", [ 'users' => User::users() ]);
 	}
 
 	public function createUser(){
@@ -111,16 +72,8 @@ class UserController{
 		return $path;
 	}
 
-	public function index(){
-		return Response::render("users/users.php", [ 'users' => User::users() ]);
-	}
-
 	public function getUserById(){
-		echo json_encode("
-			{
-				
-			}
-		");
+		Response::json("en proceso");
 	}
 
 }

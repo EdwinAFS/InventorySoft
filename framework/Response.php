@@ -18,6 +18,8 @@ class Response
 			return false;
 		}
 
+		$screenComplete = false;
+
 		//Si hay variables para asignar, las pasamos una a una.
 		if (is_array($vars)) {
 			foreach ($vars as $key => $value) {
@@ -40,6 +42,8 @@ class Response
 			return false;
 		}
 
+		$screenComplete = true;
+
 		//Si hay variables para asignar, las pasamos una a una.
 		if (is_array($vars)) {
 			foreach ($vars as $key => $value) {
@@ -47,8 +51,7 @@ class Response
 			}
 		}
 
-		//Finalmente, incluimos la plantilla.
-		include($path);
+		include(Config::get('templates')."template.php");
 	}
 
 	static public function json( $json, $httpStatus = 200){
@@ -61,5 +64,10 @@ class Response
 
 		echo json_encode($json);
 
+	}
+
+	static public function redirect( $url ){
+		header("Location: $url");
+		die();
 	}
 }

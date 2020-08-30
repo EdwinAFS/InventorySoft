@@ -59,11 +59,6 @@
 					<button type="submit" class="btn btn-primary"> Guardar </button>
 				</div>
 
-				<?php
-				$userController = new UserController();
-				$userController->createUser();
-				?>
-
 			</form>
 
 		</div>

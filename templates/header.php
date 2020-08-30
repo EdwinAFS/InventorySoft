@@ -40,7 +40,7 @@
 					<a class="dropdown-item" href="#">Perfil</a>
 					<a class="dropdown-item" href="#">Cambiar contraseña</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="logout">Cerrar sesión</a>
+					<a class="dropdown-item" id="logout">Cerrar sesión</a>
 				</div>
 			</li>
 
