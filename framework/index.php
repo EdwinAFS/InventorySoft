@@ -4,6 +4,7 @@ if(session_id() == '') {
 }
 require 'Config.php';
 require 'Response.php';
+require 'Error.php';
 
 class FrontController
 {

@@ -1,37 +1,62 @@
-<?php 
+<?php
+class User
+{
 
-require_once "../framework/Connection.php";
+	public function __construct($name, $username, $password)
+	{
+		$this->id = "";
+		$this->name = $name;
+		$this->username = $username;
+		$this->setPassword($password);
+		$this->active = true;
+	}
 
-class User{
+	/* SET */
 
-	private static $table = "users";
+	public function setId( $id ) {
+		$this->id = $id;
+	}	
+	public function setName( $name ) {
+		$this->name = $name;
+	}
+	public function setUsername($username) {
+		$this->username = $username;
+	}	
+	public function setPassword($password) {
+		$this->password = crypt($password, '$2a$07$usesomesillystringforsalt$');
+	}
+	public function setPhoto($photo) {
+		$this->photo = $photo;
+	}
+	public function setLastLogin( $lastLogin ) {
+		$this->lastLogin = $lastLogin;
+	}
+	public function setActive( $active ) {
+		$this->active = $active;
+	}
+
+	/* GET */
+
+	public function getName() {
+		return $this->name;
+	}
+	public function getId() {
+		return $this->id;
+	}
+	public function getUsername() {
+		return $this->username;
+	}
+	public function getPassword() {
+		return $this->password;
+	}
+	public function getPhoto() {
+		return $this->photo;
+	}
+	public function getLastLogin() {
+		return $this->lastLogin;
+	}
+	public function getActive() {
+		return $this->active;
+	}
 	
-	static function verifyLogin( $username, $password ){
-		$connection = ConnectionDB::connect()->prepare("SELECT * FROM ". self::$table ." WHERE username = '$username' and password = '".self::encrypt($password)."'");
-		$connection->execute();
-		return $connection->fetch();
-	}
-
-	static function create($name, $username, $password, $photoURL){
-
-		$connection = ConnectionDB::connect()->prepare("INSERT INTO users(name, username, password, active, photo) VALUES (:name, :username, :password, 1, :photo);");
-		
-		$connection->bindParam(":name", $name, PDO::PARAM_STR);
-		$connection->bindParam(":username", $username, PDO::PARAM_STR);
-		$connection->bindParam(":password", self::encrypt($password), PDO::PARAM_STR);
-		$connection->bindParam(":photo", $photoURL, PDO::PARAM_LOB);
-
-		return ($connection->execute())? "ok" : "error";
-	}
-
-	static private function encrypt( $value ){
-		return crypt($value, '$2a$07$usesomesillystringforsalt$');
-	}
-
-	static function users(){
-		$connection = ConnectionDB::connect()->prepare("SELECT * FROM ". self::$table ." WHERE active = 1");
-		$connection->execute();
-		return $connection->fetchAll();
-	}
-
 }

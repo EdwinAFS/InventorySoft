@@ -1,44 +1,61 @@
 <?php
 require_once "../framework/Config.php";
 require_once "../framework/Response.php";
-require Config::get("models")."User.php";
+require_once "../app/application/services/User/CreateUserService.php";
+require_once "../app/application/services/User/GetUsersService.php";
+require_once "../app/infraestructure/entityManager/UserMySQLRepository.php";
+
+require_once Config::get("models")."User.php";
 
 class UserController{
 
 	public function index(){
-		return Response::render("users/users.php", [ 'users' => User::users() ]);
+		$getUsersService = new GetUsersService( new UserMySQLRepository() );
+		return Response::render("users/users.php", [ 'users' => $getUsersService->run() ]);
 	}
 
-	public function createUser(){
+	public function create(){
 
-		if(
-			preg_match('/^[a-zA-Z0-9ñÑáéíóúáéíóúÁÉÍÓÚ ]+$/', $_POST["name"]) &&
-			preg_match('/^[a-zA-Z0-9_]+$/', $_POST["username"]) &&
-			preg_match('/^[a-zA-Z0-9_]+$/', $_POST["password"])
-		){
+		try{
+			if(
+				! preg_match('/^[a-zA-Z0-9ñÑáéíóúáéíóúÁÉÍÓÚ ]+$/', $_POST["name"]) ||
+				! preg_match('/^[a-zA-Z0-9_]+$/', $_POST["username"]) ||
+				! preg_match('/^[a-zA-Z0-9_]+$/', $_POST["password"])
+			){
+				return Response::json( [
+					"error" => true,
+					'message' => 'Campos con valores invalidos.'
+				], 400);
+			}
+			
 			$photoURL = "";
-
+	
 			if( isset($_FILES["photo"]["tmp_name"]) ){
 				$photoURL = $this->attachmentPhoto( $_FILES["photo"], $_POST["username"] );
 			}
-
-			$user = User::create($_POST["name"], $_POST["username"], $_POST["password"], $photoURL);
-
-			if( $user == "ok" ){
-				return Response::json( [
-					'message' => 'Se creo el usuario correctamente.'
-				] , 201);
-			}else{
-				return Response::json( [
-					'message' => 'Ocurrio un error cuando se intentaba crear un usuario.'
-				] , 500);
-			}
-
-		}else{
+	
+	
+			$createUserService = new CreateUserService( new UserMySQLRepository() );
+	
+			$createUserService->run(
+				$_POST["name"],
+				$_POST["username"],
+				$_POST["password"],
+				$photoURL
+			);
+	
 			return Response::json( [
-				'message' => 'ingrese los datos correctamente.'
-			] , 400);
+				'message' => 'Se creo el usuario correctamente.'
+			] , 201);
+		}catch( Exception $e ){
+			
+			return Response::json( [
+				'message' => 'Ocurrio un error cuando se intentaba crear un usuario.',
+				'detail' => $e->getMessage()
+			] , 500);
+			
 		}
+
 	}
 
 	private function attachmentPhoto( $file, $folderName ){

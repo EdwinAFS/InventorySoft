@@ -4,7 +4,8 @@ require_once "../config/Config.php";
 
 class Response
 {
-	function __construct(){
+	function __construct()
+	{
 	}
 
 	static public function render($name, $vars = array())
@@ -28,7 +29,7 @@ class Response
 		}
 
 		//Finalmente, incluimos la plantilla.
-		include(Config::get('templates')."template.php");
+		include(Config::get('templates') . "template.php");
 	}
 
 	static public function show($name, $vars = array())
@@ -51,11 +52,11 @@ class Response
 			}
 		}
 
-		include(Config::get('templates')."template.php");
+		include(Config::get('templates') . "template.php");
 	}
 
-	static public function json( $json, $httpStatus = 200){
-		
+	static public function json($json, $httpStatus = 200)
+	{
 		header_remove();
 
 		header("Content-Type: application/json");
@@ -63,10 +64,10 @@ class Response
 		http_response_code($httpStatus);
 
 		echo json_encode($json);
-
 	}
 
-	static public function redirect( $url ){
+	static public function redirect($url)
+	{
 		header("Location: $url");
 		die();
 	}

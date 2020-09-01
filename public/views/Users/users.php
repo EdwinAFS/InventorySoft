@@ -1,6 +1,6 @@
 <?php
-	include "add.php";
-	include "edit.php";
+include "add.php";
+include "edit.php";
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -47,24 +47,23 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php 						
-							foreach ($users as $user) {
-								echo "
+						<?php
+						foreach ($users as $user) {
+							echo "
 								<tr>
-									<td>{$user['id']}</td>
-									<td>{$user['name']}</td>
-									<td>{$user['username']}</td>
+									<td>{$user->getId()}</td>
+									<td>{$user->getName()}</td>
+									<td>{$user->getUsername()}</td>
 								";
 
-								echo 
-									($user['active'] == 1)?
-										"<td><button class='btn btn-success btn-xs'>Activo</button></td>": 
-										"<td><button class='btn btn-danger btn-xs'>Inactivo</button></td>";
-								
-								echo "<td>{$user['last_login']}</td>
+							echo ($user->getActive()) ?
+									"<td><button class='btn btn-success btn-xs'>Activo</button></td>" :
+									"<td><button class='btn btn-danger btn-xs'>Inactivo</button></td>";
+
+							echo "<td>{$user->getLastLogin()}</td>
 									<td>
 										<div class='btn-group'>
-											<button class='btn btn-warning text-white m-0 btn-UserEdit' userId='{$user['id']}' data-toggle='modal' data-target='#EditUserModal'>
+											<button class='btn btn-warning text-white m-0 btn-UserEdit' userId='{$user->getId()}' data-toggle='modal' data-target='#EditUserModal'>
 												<i class='fas fa-pencil-alt'></i>
 											</button>
 											<button class='btn btn-danger text-white m-0'>
@@ -74,10 +73,10 @@
 									</td>
 								</tr>
 								";
-							}
+						}
 
 						?>
-						
+
 					</tbody>
 				</table>
 			</div>
@@ -93,4 +92,4 @@
 </div>
 <!-- /.content-wrapper -->
 
-<script src="views/Users/users.js"></script>
+<script src="public/views/users/users.js"></script>
