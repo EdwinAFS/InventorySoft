@@ -34,7 +34,6 @@ class UserController{
 				$photoURL = $this->attachmentPhoto( $_FILES["photo"], $_POST["username"] );
 			}
 	
-	
 			$createUserService = new CreateUserService( new UserMySQLRepository() );
 	
 			$createUserService->run(

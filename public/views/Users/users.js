@@ -8,16 +8,15 @@ $(".btn-UserEdit").click(function( e ){
 /* CREAR UN USUARIO */
 $("#btnAddUser").click(function( e ){
 	var data = {
-		name: document.querySelector("name").value(),
-		username: document.querySelector("username").value(),
-		password: document.querySelector("password").value(),
-		rol: document.querySelector("rol").value(),
-		photo: document.querySelector("photo").value()
+		...document.getElementById("FormAddUser").getData(),
+		photo: document.getElementById("photo").value
 	};
+
+	console.log(data);
 
 	fetch("./user/create", {
 		method: "POST",
-		body: data
+		body: convertJsonToForm(data)
 	})
 	.then((res) => res.json())
 	.catch((error) => AlertError(error))

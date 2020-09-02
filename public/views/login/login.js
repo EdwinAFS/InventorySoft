@@ -21,14 +21,6 @@ $("#btnLogin").click(function () {
 	
 });
 
-function AlertError( message = ""){
-	Swal.fire({
-		icon: 'error',
-		title: 'Oops...',
-		text: message
-	});
-}
-
 
 
 

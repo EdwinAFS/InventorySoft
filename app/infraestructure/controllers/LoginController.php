@@ -1,7 +1,9 @@
 <?php
-require_once "../framework/Config.php";
 require_once "../framework/Response.php";
-require_once Config::get("models")."User.php";
+require_once "../app/application/services/User/LoginService.php";
+require_once "../app/application/services/User/FindByIdService.php";
+require_once "../app/infraestructure/entityManager/UserMySQLRepository.php";
+require_once "../app/infraestructure/entityManager/AutenticationMySQLRepository.php";
 
 class LoginController{
 	
@@ -11,36 +13,38 @@ class LoginController{
 
 	public function autenticate(){
 	
-		if( $this->validateCredencials() ){
-			
-			$username = $_POST["username"];
-			$password = $_POST["password"];
-			
-			$user = User::verifyLogin( $username, $password );
-
-			if( ! $user ){
-				return Response::json( [
-					"error" => true,
-					'message' => 'Credenciales incorrectas.'
-				] , 401);
-			}
-
-			$_SESSION["isAuth"] = true;
-			$_SESSION["name"] = $user["name"];
-			$_SESSION["username"] = $user["username"];
-			$_SESSION["photo"] = $user["photo"];
-
+		if( ! $this->validateCredencials() ){
 			return Response::json( [
-				"error" => false,
-				'home' => 'home/index'
-			], 200);
-
+				"error" => true,
+				'message' => 'ingrese las credenciales correctamente.'
+			], 400);
 		}
 		
+		$loginService = new LoginService( new AutenticationMySQLRepository() );
+
+		$response = $loginService->run(
+			$_POST["username"],
+			$_POST["password"],
+		);
+		
+		if( ! $response ){
+			return Response::json( [
+				"error" => true,
+				'message' => 'Credenciales incorrectas.'
+			] , 401);
+		}
+			
+		$findByIdService = new findByIdService( new UserMySQLRepository() );
+
+		$user = $findByIdService->run( $response->getId() );
+		$_SESSION["isAuth"] = true;
+		$_SESSION["name"] = $user->getName();
+		$_SESSION["username"] = $user->getUsername();
+
 		return Response::json( [
-			"error" => true,
-			'message' => 'ingrese las credenciales correctamente.'
-		], 400);
+			"error" => false,
+			'home' => 'home/index'
+		], 200);
 
 	}
 

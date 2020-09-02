@@ -3,7 +3,7 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content ">
 
-			<form method="POST" role="form" enctype="multipart/form-data">
+			<form method="POST" role="form" enctype="multipart/form-data" id="FormAddUser">
 				<div class="modal-header bg-primary">
 					<h5 class="modal-title">Agregar Usuario</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -46,7 +46,7 @@
 					</div>
 
 					<div class="custom-file">
-						<input type="file" class="custom-file-input photo" name="photo">
+						<input type="file" class="custom-file-input photo" name="photo" id="photo">
 						<label class="custom-file-label" for="photo" data-browse="Elegir">Seleccionar Archivo</label>
 					</div>
 
