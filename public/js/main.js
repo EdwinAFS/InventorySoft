@@ -58,10 +58,10 @@ $("#logout").click(function () {
 
 	fetch("./login/logout")
 	.then((res) => res.json())
-	.catch((error) => AlertError(error))
+	.catch((error) => alert.errorAlert(error))
 	.then((response) => {
 		if(response.error){
-			AlertError(response.message);
+			alert.errorAlert(response.message);
 		}else{
 			window.location.href =  response.url;
 		}
@@ -82,10 +82,18 @@ HTMLFormElement.prototype.getData = function (){
     return indexed_array;
 }
 
-function AlertError( message = ""){
-	Swal.fire({
-		icon: 'error',
-		title: 'Oops...',
-		text: message
-	});
+const alert = {
+	errorAlert: function( message = ""){
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: message
+		});
+	},
+	successAlert: function( message = "" ){
+		Swal.fire({
+			icon: 'success',
+			text: message
+		});
+	}
 }

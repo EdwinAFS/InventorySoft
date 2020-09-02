@@ -58,5 +58,5 @@ class User
 	public function getActive() {
 		return $this->active;
 	}
-	
+
 }

@@ -10,10 +10,10 @@ $("#btnLogin").click(function () {
 		body: convertJsonToForm(data)
 	})
 	.then((res) => res.json())
-	.catch((error) => AlertError(error))
+	.catch((error) => alert.errorAlert(error))
 	.then((response) => {
 		if(response.error){
-			AlertError(response.message);
+			alert.errorAlert(response.message);
 		}else{
 			window.location.href =  response.home;
 		}

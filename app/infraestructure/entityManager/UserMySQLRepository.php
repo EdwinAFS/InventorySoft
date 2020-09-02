@@ -1,8 +1,11 @@
 <?php
 
 require_once "../app/domain/repositories/UserRepository.php";
+require_once "../app/infraestructure/Connection.php";
 
 class UserMySQLRepository implements UserRepository{
+
+	private $table = 'users';
 
 	public function create( User $user ){
 		return $user;
@@ -13,20 +16,41 @@ class UserMySQLRepository implements UserRepository{
 	}
 
 	public function findById(String $id){
-		return new User( "test" , "test" , "test" );
+		$query = "SELECT * FROM $this->table WHERE id = $id";
+		$connection = ConnectionDB::connect()->prepare($query);
+		$connection->execute();
+
+		$userData = $connection->fetch();
+
+		var_dump($connection);
+
+		if( ! $userData ){
+			return null;
+		}
+
+		$user = new User($userData['name'], $userData['username'], $userData['password']);	
+		$user->setPhoto($userData['photo']);
+		$user->setActive($userData['active']);
+		$user->setLastLogin($userData['last_login']);
+		
 	}
 
 	public function users(){
 
-		$user1 = new User( "test1" , "test1" , "test1" );
-		$user1->setLastLogin( date("Y-m-d H:i:s") );
-		$user2 = new User( "test2" , "test2" , "test2" );
-		$user2->setLastLogin( date("Y-m-d H:i:s") );
+		$connection = ConnectionDB::connect()->prepare("SELECT * FROM $this->table WHERE active = 1");
+		$connection->execute();
 		
-		$users = [
-			$user1,
-			$user2
-		];
+		$users = [];
+
+		foreach ($connection->fetchAll() as $user) {
+
+			$userObj = new User( $user['name'], $user['username'], '' );
+			$userObj->setId($user['id']);
+			$userObj->setPhoto($user['photo']);
+			$userObj->setActive($user['active']);
+			$userObj->setLastLogin($user['last_login']);
+			array_push($users, $userObj);
+		}
 
 		return $users;
 	}

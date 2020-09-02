@@ -1,7 +1,19 @@
 
+/* OBTENER EL USUARIO A EDITAR */
 $(".btn-UserEdit").click(function( e ){
 	var userId = $(this).attr("userId");
-	console.log(userId);
+	
+	fetch("./user/findById?id=" + userId)
+		.then((res) => res.json())
+		.catch((error) => alert.errorAlert(error))
+		.then((response) => {
+			if(response.error){
+				alert.errorAlert(response.message);
+			}else{
+				console.log(response.data);
+			}
+		});;
+
 });
 
 
@@ -9,22 +21,20 @@ $(".btn-UserEdit").click(function( e ){
 $("#btnAddUser").click(function( e ){
 	var data = {
 		...document.getElementById("FormAddUser").getData(),
-		photo: document.getElementById("photo").value
+		photo: document.querySelector('#AddPhoto').files[0]
 	};
-
-	console.log(data);
 
 	fetch("./user/create", {
 		method: "POST",
 		body: convertJsonToForm(data)
 	})
 	.then((res) => res.json())
-	.catch((error) => AlertError(error))
+	.catch((error) => alert.errorAlert(error))
 	.then((response) => {
 		if(response.error){
-			AlertError(response.message);
+			alert.errorAlert(response.message);
 		}else{
-			console.log(response);
+			alert.successAlert(response.message);
 		}
 	});
 

@@ -5,7 +5,7 @@
 	Config::set('models', '../app/domain/models/');
 	Config::set('views', '../public/views/');
 	Config::set('templates', '../templates/');
-	Config::set('storage', 'storage/');
+	Config::set('storage', '../storage/');
 	
 	Config::set('dbhost', 'localhost');
 	Config::set('dbname', 'pos');

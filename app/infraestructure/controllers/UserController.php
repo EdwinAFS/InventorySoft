@@ -3,6 +3,7 @@ require_once "../framework/Config.php";
 require_once "../framework/Response.php";
 require_once "../app/application/services/User/CreateUserService.php";
 require_once "../app/application/services/User/GetUsersService.php";
+require_once "../app/application/services/User/FindByIdService.php";
 require_once "../app/infraestructure/entityManager/UserMySQLRepository.php";
 
 require_once Config::get("models")."User.php";
@@ -44,6 +45,7 @@ class UserController{
 			);
 	
 			return Response::json( [
+				'error' => false,
 				'message' => 'Se creo el usuario correctamente.'
 			] , 201);
 		}catch( Exception $e ){
@@ -88,8 +90,34 @@ class UserController{
 		return $path;
 	}
 
-	public function getUserById(){
-		Response::json("en proceso");
+	public function findById(){
+
+		try {
+			$userId = $_GET['id'];
+
+			$findByIdService = new FindByIdService( new UserMySQLRepository() );
+		
+			$user = $findByIdService->run( $userId );
+
+			if( ! $user ){
+				return Response::json( [
+					'error' => true,
+					'message' => 'El usuario no existe.'
+				] , 404);
+			}
+
+			return Response::json( [
+				'error' => false,
+				'data' => $user
+			] , 200);
+
+
+		} catch (Exception $e) {
+			return Response::json( [
+				'message' => 'Ocurrio un error obteniendo el usuario.',
+				'detail' => $e->getMessage()
+			] , 500);
+		}
 	}
 
 }

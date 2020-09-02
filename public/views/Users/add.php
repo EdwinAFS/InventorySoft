@@ -46,7 +46,7 @@
 					</div>
 
 					<div class="custom-file">
-						<input type="file" class="custom-file-input photo" name="photo" id="photo">
+						<input type="file" class="custom-file-input photo" name="photo" id="AddPhoto">
 						<label class="custom-file-label" for="photo" data-browse="Elegir">Seleccionar Archivo</label>
 					</div>
 
