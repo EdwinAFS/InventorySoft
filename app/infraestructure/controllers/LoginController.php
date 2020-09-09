@@ -26,7 +26,7 @@ class LoginController{
 			$_POST["username"],
 			$_POST["password"],
 		);
-		
+
 		if( ! $response ){
 			return Response::json( [
 				"error" => true,
@@ -37,6 +37,7 @@ class LoginController{
 		$findByIdService = new findByIdService( new UserMySQLRepository() );
 
 		$user = $findByIdService->run( $response->getId() );
+
 		$_SESSION["isAuth"] = true;
 		$_SESSION["name"] = $user->getName();
 		$_SESSION["username"] = $user->getUsername();

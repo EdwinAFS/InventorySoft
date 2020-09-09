@@ -1,6 +1,7 @@
 <?php
 class Autentication
 {
+	private $id;
 
 	public function __construct( $username, $password)
 	{

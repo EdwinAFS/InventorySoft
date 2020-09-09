@@ -1,5 +1,5 @@
 <?php
-if(session_id() == '') {
+if (session_id() == '') {
 	session_start();
 }
 require 'Config.php';
@@ -11,22 +11,18 @@ class FrontController
 	static function run()
 	{
 		// verificamos que este logueado
-		
-		
+
+
 
 		$controllerName = self::getNameController();
-		$methodName = self::getNameMethod();	
+		$methodName = self::getNameMethod();
 
-		if( 
-			strtoupper($controllerName) !== strtoupper("LoginController") && 
-			(
-				! isset($_SESSION["isAuth"]) || 
-				(
-					isset($_SESSION["isAuth"]) &&
-					$_SESSION["isAuth"] == false
-				)
-			) 
-		){
+		if (
+			strtoupper($controllerName) !== strtoupper("LoginController") &&
+			(!isset($_SESSION["isAuth"]) ||
+				(isset($_SESSION["isAuth"]) &&
+					$_SESSION["isAuth"] == false))
+		) {
 			return Response::show("login/login.php");
 		}
 
@@ -47,9 +43,44 @@ class FrontController
 			return false;
 		}
 
+		$params = [];
+		$body = [];
+		$method = $_SERVER['REQUEST_METHOD'];
+
+		switch ($method) {
+			case 'PUT':
+				$body = json_decode(file_get_contents("php://input"), true);
+				break;
+			case 'POST':
+				$body = $_POST;
+				break;
+			case 'GET':
+			case 'DELETE':
+				break;
+			default:
+				return Response::json([
+					'error' => true,
+					'message' => "El metodo HTTP $method es incorrecto."
+				], 400);
+				break;
+		}
+
+		foreach ($_GET as $key => $value) {
+			if (in_array($key, ['controller', 'method'])) {
+				continue;
+			}
+			$params[$key] = $value;
+		}
+
+		$request = (object)[
+			'params' => (object) $params,
+			'body' => (object) $body,
+			'method' => $method
+		];
+
 		//Si todo esta bien, creamos una instancia del controlador y llamamos a la accion
 		$controller = new $controllerName();
-		$controller->$methodName();
+		$controller->$methodName($request);
 	}
 
 	static public function getNameController()

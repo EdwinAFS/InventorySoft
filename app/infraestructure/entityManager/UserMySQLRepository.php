@@ -14,6 +14,10 @@ class UserMySQLRepository implements UserRepository{
 	public function update( User $user ){
 		return $user;
 	}
+	
+	public function delete( string $id ){
+		return true;
+	}
 
 	public function findById(String $id){
 		$query = "SELECT * FROM $this->table WHERE id = $id";
@@ -22,16 +26,17 @@ class UserMySQLRepository implements UserRepository{
 
 		$userData = $connection->fetch();
 
-		var_dump($connection);
-
 		if( ! $userData ){
 			return null;
 		}
 
 		$user = new User($userData['name'], $userData['username'], $userData['password']);	
+		$user->setId($userData['id']);
 		$user->setPhoto($userData['photo']);
 		$user->setActive($userData['active']);
 		$user->setLastLogin($userData['last_login']);
+
+		return $user;
 		
 	}
 

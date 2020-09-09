@@ -66,7 +66,7 @@ include "edit.php";
 											<button class='btn btn-warning text-white m-0 btn-UserEdit' userId='{$user->getId()}' data-toggle='modal' data-target='#EditUserModal'>
 												<i class='fas fa-pencil-alt'></i>
 											</button>
-											<button class='btn btn-danger text-white m-0'>
+											<button class='btn btn-danger text-white m-0 btn-DeleteUser' userId='{$user->getId()}'>
 												<i class='fas fa-times'></i>
 											</button>
 										</div>
