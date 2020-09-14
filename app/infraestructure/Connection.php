@@ -1,6 +1,11 @@
-<?php 
+<?php
 
-class ConnectionDB{
+namespace App\Infraestructure;
+
+use framework\Config;
+use PDO;
+
+class Connection{
 	
 	public static function connect(){
 		
@@ -11,6 +16,8 @@ class ConnectionDB{
 		);
 
 		$link->exec("set names utf8");
+
+		$link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		return $link;
 

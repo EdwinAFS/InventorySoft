@@ -1,10 +1,12 @@
 <?php
 
-require_once "../app/domain/repositories/UserRepository.php";
+namespace App\Application\user;
+
+use App\Domain\repositories\UserRepository;
+use Exception;
 
 class DeleteUserService
 {
-
 	public function __construct(UserRepository $userRepository)
 	{
 		$this->userRepository = $userRepository;

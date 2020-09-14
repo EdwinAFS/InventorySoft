@@ -1,6 +1,8 @@
 <?php
 
-require_once "Response.php";
+namespace framework;
+
+use Framework\Response;
 
 function customError(
 	$error_level,

@@ -1,7 +1,8 @@
 <?php
 
-require_once "../app/domain/models/User.php";
-require_once "../app/domain/repositories/UserRepository.php";
+namespace App\Application\user;
+
+use App\Domain\repositories\UserRepository;
 
 class FindByIdService
 {

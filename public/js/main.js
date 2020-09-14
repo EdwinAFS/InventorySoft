@@ -83,11 +83,11 @@ HTMLFormElement.prototype.getData = function (){
 }
 
 const alert = {
-	errorAlert: function( message = ""){
+	errorAlert: function( message = "", detail = ""){
 		Swal.fire({
 			icon: 'error',
 			title: 'Oops...',
-			text: message
+			html: message + "<span style='font-size: 13px'>" +((detail != "")? "</br>": "") + detail +"</span>"
 		});
 	},
 	successAlert: function( message = "" ){

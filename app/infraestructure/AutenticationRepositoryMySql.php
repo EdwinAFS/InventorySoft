@@ -1,13 +1,17 @@
 <?php
 
-require_once "../app/domain/repositories/AutenticationRepository.php";
-require_once "../app/infraestructure/Connection.php";
+namespace App\Infraestructure;
 
-class AutenticationMySQLRepository implements AutenticationRepository{
+use App\Domain\models\Autentication;
+use App\Domain\repositories\AutenticationRepository;
+use App\Infraestructure\Connection;
+use PDO;
+
+class AutenticationRepositoryMySql implements AutenticationRepository{
 
 	public function verify( Autentication $autentication ){
 		$query = "SELECT * FROM Users WHERE username = '{$autentication->getUsername()}' and password = '{$autentication->getPassword()}'";
-		$connection = ConnectionDB::connect()->prepare($query);
+		$connection = Connection::connect()->prepare($query);
 		$connection->setFetchMode(PDO::FETCH_ASSOC);
 
 		$connection->execute();
@@ -20,6 +24,7 @@ class AutenticationMySQLRepository implements AutenticationRepository{
 
 		$autentication = new Autentication($user['username'], $user['password']);	
 		$autentication->setId( $user['id'] );
+		$autentication->setName( $user['name'] );
 
 		return $autentication;	
 		

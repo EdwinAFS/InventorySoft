@@ -1,4 +1,7 @@
 <?php
+
+namespace framework;
+
 class Config {
 
 	static private $vars;
@@ -33,3 +36,5 @@ class Config {
 		return self::$instance;
 	}
 }
+
+?>

@@ -7,16 +7,20 @@ $(".btn-UserEdit").click(function (e) {
     .catch((error) => alert.errorAlert(error))
     .then((response) => {
       if (response.error) {
-        alert.errorAlert(response.message);
+        alert.errorAlert(response.message, response.detail);
       } else {
         $("#editName").val(response.data["name"]);
         $("#editUsername").val(response.data["username"]);
         $("#editRol").val(response.data["rol"]);
         $("#editId").val(response.data["id"]);
-
-        /*
-			$("#editPhoto").val(response.data['photo']);
-		*/
+		
+		if( ! response.data["photo"] ){
+			$("#avatar").hide();
+		}else{
+			$("#avatar").show();
+			$("#photoUrl").val( response.data["photo"] );
+			$("#avatar").attr("src", response.data["photo"]);
+		}
       }
     });
 });
@@ -32,7 +36,7 @@ $(".btn-DeleteUser").click(function (e) {
     .catch((error) => alert.errorAlert(error))
     .then((response) => {
       if (response.error) {
-        alert.errorAlert(response.message);
+        alert.errorAlert(response.message, response.detail);
       } else {
         alert.successAlert(response.message);
       }
@@ -48,20 +52,19 @@ $("#btnEditUser").click(function (e) {
     name: formData.editName,
     username: formData.editUsername,
     password: formData.editPassword,
+    photoUrl: formData.photoUrl,
+    photo: document.querySelector("#editPhoto").files[0],
   };
 
   fetch(`./user/update?id=${data.id}`, {
     method: "PUT",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-    },
+    body: convertJsonToForm(data)
   })
     .then((res) => res.json())
     .catch((error) => alert.errorAlert(error))
     .then((response) => {
       if (response.error) {
-        alert.errorAlert(response.message);
+        alert.errorAlert(response.message, response.detail);
       } else {
         alert.successAlert(response.message);
       }
@@ -83,7 +86,7 @@ $("#btnAddUser").click(function (e) {
     .catch((error) => alert.errorAlert(error))
     .then((response) => {
       if (response.error) {
-        alert.errorAlert(response.message);
+        alert.errorAlert(response.message, response.detail);
       } else {
         alert.successAlert(response.message);
       }

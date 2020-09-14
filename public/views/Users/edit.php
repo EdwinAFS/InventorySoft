@@ -31,11 +31,10 @@
 						</div>
 					</div>
 
-
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-text"><i class="fa fa-lock"> </i></span>
-							<input type="password" class="form-control input-lg" name="editPassword" id="editPassword" placeholder="Ingrese el contraseña" autocomplete="off">
+							<input type="password" class="form-control input-lg" name="editPassword" placeholder="Ingrese el contraseña" autocomplete="off">
 						</div>
 					</div>
 
@@ -52,6 +51,11 @@
 					<div class="custom-file">
 						<input type="file" class="custom-file-input photo" name="editPhoto" id="editPhoto">
 						<label class="custom-file-label" for="photo" data-browse="Elegir">Seleccionar Archivo</label>
+					</div>
+					
+					<div class="form-group">
+						<input type="hidden" name="photoUrl" id="photoUrl">
+						<img id="avatar" name="avatar" src="" alt="Avatar" class="img-thumbnail" width="150px">
 					</div>
 
 				</div>

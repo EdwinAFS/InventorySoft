@@ -1,7 +1,11 @@
 <?php
+
+namespace App\Domain\models;
+
 class Autentication
 {
 	private $id;
+	private $name;
 
 	public function __construct( $username, $password)
 	{
@@ -17,6 +21,9 @@ class Autentication
 	public function setUsername($username) {
 		$this->username = $username;
 	}	
+	public function setName($name) {
+		$this->name = $name;
+	}	
 	public function setPassword($password) {
 		$this->password = crypt($password, '$2a$07$usesomesillystringforsalt$');
 	}
@@ -29,6 +36,9 @@ class Autentication
 	public function getUsername() {
 		return $this->username;
 	}
+	public function getName() {
+		return $this->name;
+	}	
 	public function getPassword() {
 		return $this->password;
 	}

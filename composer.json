@@ -1,0 +1,11 @@
+{
+	"autoload": {
+		"psr-4": {		
+			"App\\": ["app"],
+			"Config\\": ["config"],
+			"Framework\\": ["framework"],
+			"Public\\": ["public"],
+			"Templates\\": ["templates"]
+		}
+	}   
+  }

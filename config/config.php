@@ -1,7 +1,9 @@
 <?php
-	require_once "../framework/Config.php";
+	namespace Config\config;
+
+	use Framework\Config;
 	
-	Config::set('controllers', '../app/infraestructure/controllers/');
+	Config::set('controllers', '../app/entry_point/controllers/');
 	Config::set('models', '../app/domain/models/');
 	Config::set('views', '../public/views/');
 	Config::set('templates', '../templates/');

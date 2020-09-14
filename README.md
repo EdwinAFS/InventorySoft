@@ -1,1 +1,3 @@
+1. ejecutar el en consola "composer dump-autoload"
+
 En construcción...

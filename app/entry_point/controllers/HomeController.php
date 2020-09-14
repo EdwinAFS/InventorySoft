@@ -1,5 +1,8 @@
 <?php
-require_once '../framework/Response.php';
+
+namespace App\Entry_point\Controllers;
+
+use Framework\Response;
 
 class HomeController{
 	
