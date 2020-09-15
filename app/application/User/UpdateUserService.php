@@ -17,7 +17,7 @@ class UpdateUserService
 		$this->fileRepository = $fileRepository;
 	}
 
-	public function run($id, $name, $username, $password = "", $photo = null, $previousPhotoUrl = null)
+	public function run($id, $name, $username, $rolID, $password = "", $photo = null, $previousPhotoUrl = null)
 	{
 		$userExists = $this->userRepository->findByUsername($username);
 
@@ -26,11 +26,13 @@ class UpdateUserService
 		}   
 
 		if( ! empty($password) ){
-			$user = User::forUpdate($id, $name, $username );
+			$user = User::forUpdate($id, $name, $username, $rolID );
 			$user->setPassword( $password );
 		}else{
-			$user = User::forUpdate($id, $name, $username, $userExists->getPassword());
+			$user = User::forUpdate($id, $name, $username, $rolID, $userExists->getPassword());
 		}
+
+		$user->setActive( $userExists->getActive() );
 
 		if( $photo ){
 

@@ -2,9 +2,10 @@
 
 namespace App\Domain\models;
 
-class Category
+class Rol
 {
 	private $id;
+	private $code;
 	private $description;
 	private $active;
 
@@ -18,6 +19,10 @@ class Category
 	public function setId($id)
 	{
 		$this->id = $id;
+	}
+	public function setCode($code)
+	{
+		$this->code = $code;
 	}
 	public function setDescription($description)
 	{
@@ -34,6 +39,10 @@ class Category
 	{
 		return $this->id;
 	}
+	public function getCode()
+	{
+		return $this->code;
+	}
 	public function getDescription()
 	{
 		return $this->description;
@@ -46,6 +55,7 @@ class Category
 	public function get(){
 		return [
 			"id" => $this->getId(),
+			"code" => $this->getCode(),
 			"description" => $this->getDescription(),
 			"active" => $this->getActive()
 		];

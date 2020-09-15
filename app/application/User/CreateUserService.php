@@ -17,7 +17,7 @@ class CreateUserService
 		$this->fileRepository = $fileRepository;
 	}
 
-	public function run($name, $username, $password, $photo = null)
+	public function run($name, $username, $password, $rolID, $photo = null)
 	{
 		$userExists = $this->userRepository->findByUsername($username);
 
@@ -25,7 +25,7 @@ class CreateUserService
 			throw new UserAlreadyExist($username);
 		}
 
-		$user = User::forCreate($name, $username, $password);
+		$user = User::forCreate($name, $username, $rolID, $password);
 		$user->setId(Uuid::random()->value());
 
 		

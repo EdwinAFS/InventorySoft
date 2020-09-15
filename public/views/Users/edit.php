@@ -42,8 +42,11 @@
 						<div class="input-group">
 							<span class="input-group-text"><i class="fa fa-users"> </i></span>
 							<select class="form-control input-lg" name="editRol" id="editRol" placeholder="Ingrese el contraseña">
-								<option value="administrador">Administrador</option>
-								<option value="vendedor">vendedor</option>
+								<?php 
+									foreach ($rols as $rol) {
+										echo "<option value='{$rol->getId()}'>{$rol->getDescription()}</option>";
+									}
+								?>
 							</select>
 						</div>
 					</div>

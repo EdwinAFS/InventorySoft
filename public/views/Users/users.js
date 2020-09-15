@@ -1,5 +1,5 @@
 /* OBTENER EL USUARIO A EDITAR */
-$(".btn-UserEdit").click(function (e) {
+$(document).on("click", ".btn-UserEdit", function (e) {
   var userId = $(this).attr("userId");
 
   fetch("./user/findById?id=" + userId)
@@ -11,22 +11,22 @@ $(".btn-UserEdit").click(function (e) {
       } else {
         $("#editName").val(response.data["name"]);
         $("#editUsername").val(response.data["username"]);
-        $("#editRol").val(response.data["rol"]);
         $("#editId").val(response.data["id"]);
-		
-		if( ! response.data["photo"] ){
-			$("#avatar").hide();
-		}else{
-			$("#avatar").show();
-			$("#photoUrl").val( response.data["photo"] );
-			$("#avatar").attr("src", response.data["photo"]);
-		}
+        $("#editRol").val(response.data["rolID"]);
+
+        if (!response.data["photo"]) {
+          $("#avatar").hide();
+        } else {
+          $("#avatar").show();
+          $("#photoUrl").val(response.data["photo"]);
+          $("#avatar").attr("src", response.data["photo"]);
+        }
       }
     });
 });
 
 /* ELIMINAR UN USUARIO */
-$(".btn-DeleteUser").click(function (e) {
+$(document).on("click", ".btn-DeleteUser", function (e) {
   var userId = $(this).attr("userId");
 
   fetch("./user/delete?id=" + userId, {
@@ -44,13 +44,14 @@ $(".btn-DeleteUser").click(function (e) {
 });
 
 /* EDITAR UN USUARIO */
-$("#btnEditUser").click(function (e) {
+$(document).on("click", "#btnEditUser", function (e) {
   formData = document.getElementById("FormEditUser").getData();
 
   var data = {
     id: formData.editId,
     name: formData.editName,
     username: formData.editUsername,
+    rolID: formData.editRol,
     password: formData.editPassword,
     photoUrl: formData.photoUrl,
     photo: document.querySelector("#editPhoto").files[0],
@@ -58,7 +59,7 @@ $("#btnEditUser").click(function (e) {
 
   fetch(`./user/update?id=${data.id}`, {
     method: "PUT",
-    body: convertJsonToForm(data)
+    body: convertJsonToForm(data),
   })
     .then((res) => res.json())
     .catch((error) => alert.errorAlert(error))
@@ -72,7 +73,7 @@ $("#btnEditUser").click(function (e) {
 });
 
 /* CREAR UN USUARIO */
-$("#btnAddUser").click(function (e) {
+$(document).on("click", "#btnAddUser", function (e) {
   var data = {
     ...document.getElementById("FormAddUser").getData(),
     photo: document.querySelector("#AddPhoto").files[0],
@@ -89,6 +90,7 @@ $("#btnAddUser").click(function (e) {
         alert.errorAlert(response.message, response.detail);
       } else {
         alert.successAlert(response.message);
+        resetForm();
       }
     });
 });
@@ -118,4 +120,36 @@ $(".photo").change(function (e) {
       $(".custom-file-label").html("Seleccione archivo");
     });
   }
+});
+
+$(document).on("click", ".btn-Active", function (e) {
+  var userId = $(this).attr("userId");
+
+  fetch("./user/changeActive?id=" + userId, {
+    method: "PATCH",
+  })
+    .then((res) => res.json())
+    .then((response) => {
+      if (response.error) {
+        alert.errorAlert(response.message, response.detail);
+      } else {
+        $(this).removeClass(
+          response.data.active == "1" ? "btn-danger" : "btn-success"
+        );
+        $(this).addClass(response.data.active == "1" ? "btn-success" : "btn-danger");
+
+        $(this).html(response.data.active == "1" ? "Activo" : "Inactivo");
+      }
+    })
+    .catch((error) => alert.errorAlert(error));
+});
+
+$("#EditUserModal").on("hidden.bs.modal", function (e) {
+  document.getElementById("FormEditUser").reset();
+  $(".custom-file-label").html("Seleccione archivo");
+});
+
+$("#AddUserModal").on("hidden.bs.modal", function (e) {
+  document.getElementById("FormAddUser").reset();
+  $(".custom-file-label").html("Seleccione archivo");
 });

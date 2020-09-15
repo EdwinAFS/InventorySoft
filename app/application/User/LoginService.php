@@ -36,17 +36,5 @@ class LoginService
 
 		return $user;
 
-		/* $verifiedUser = $this->autenticationRepository->verify( new Autentication($username, $password) );
-
-		if( ! $verifiedUser ){
-			throw new Exception("Credenciales incorrectas");
-		}
-		
-		$user = User::forUpdate( $verifiedUser->getId(), $verifiedUser->getName(), $verifiedUser->getUsername() );
-
-		$user->setLastLogin(  date("Y-m-d H:i:s") );
-
-		$this->userRepository->update($user); */
-
 	}
 }

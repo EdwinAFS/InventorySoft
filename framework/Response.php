@@ -33,9 +33,6 @@ class Response
 
 	static public function show($name, $vars = array())
 	{
-		/* var_dump(Config::get('templates'));
-		return;
- */
 		//Armamos la ruta a la plantilla
 		$path = Config::get('views') . $name;
 

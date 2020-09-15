@@ -9,6 +9,7 @@ class User
 	private $username;
 	private $password;
 	private $photo;
+	private $rolID;
 	private $lastLogin;
 	private $active;
 
@@ -16,21 +17,23 @@ class User
 	{
 	}
 
-	public static function forUpdate($id, $name, $username, $password = null)
+	public static function forUpdate($id, $name, $username, $rolID, $password = null)
 	{
 		$user = new self;
 		$user->setId($id);
 		$user->setName($name);
 		$user->setUsername($username);
+		$user->setRolID($rolID);
 		$user->password = $password;
 		return $user;
 	}
 
-	public static function forCreate($name, $username, $password)
+	public static function forCreate($name, $username, $rolID, $password)
 	{
 		$user = new self;
 		$user->setName($name);
 		$user->setUsername($username);
+		$user->setRolID($rolID);
 		$user->setPassword($password);
 		$user->setActive(true);
 
@@ -54,6 +57,10 @@ class User
 	public function setPassword($password)
 	{
 		$this->password = crypt($password, '$2a$07$usesomesillystringforsalt$');
+	}
+	public function setRolID($rolID)
+	{
+		$this->rolID = $rolID;
 	}
 	public function setPhoto($photo)
 	{
@@ -86,6 +93,10 @@ class User
 	{
 		return $this->password;
 	}
+	public function getRolID()
+	{
+		return $this->rolID;
+	}
 	public function getPhoto(): ? string 
 	{
 		return $this->photo;
@@ -104,6 +115,7 @@ class User
 			"name" => $this->getName(),
 			"id" => $this->getId(),
 			"username" => $this->getUsername(),
+			"rolID" => $this->getRolID(),
 			"photo" => $this->getPhoto(),
 			"lastLogin" => $this->getLastLogin(),
 			"active" => $this->getActive()

@@ -31,25 +31,25 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="categories" class="nav-link">
+					<a href="category" class="nav-link">
 						<i class="nav-icon fas fa-th"></i>
 						<p> Categorias </p>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="products" class="nav-link">
+					<a href="product" class="nav-link">
 						<i class="nav-icon fab fa-product-hunt"></i>
 						<p> Productos </p>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="customers" class="nav-link">
+					<a href="customer" class="nav-link">
 						<i class="nav-icon fas fa-users"></i>
 						<p> Clientes </p>
 					</a>
 				</li>
 				<li class="nav-item has-treeview">
-					<a href="sales" class="nav-link">
+					<a href="sale" class="nav-link">
 						<i class="nav-icon fa fa-list-ul"></i>
 						<p> Ventas <i class="right fas fa-angle-left"></i> </p>
 					</a>

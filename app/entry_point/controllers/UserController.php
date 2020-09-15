@@ -2,15 +2,18 @@
 
 namespace App\Entry_point\controllers;
 
-use Framework\Config;
+use App\Application\user\ChangeActiveUserService;
 use Framework\Response;
 use App\Application\User\CreateUserService;
 use App\Application\User\UpdateUserService;
 use App\Application\User\DeleteUserService;
 use App\Application\User\GetUsersService;
+use App\Application\User\GetAllRolesService;
 use App\Application\User\FindByIdService;
+use App\Domain\exception\CustomException;
 use App\Domain\exception\UserAlreadyExist;
 use App\Infraestructure\FileRepositoryLocal;
+use App\Infraestructure\RolRepositoryMySql;
 use App\Infraestructure\UserRepositoryMySql;
 use Exception;
 
@@ -20,7 +23,12 @@ class UserController
 	public function index()
 	{
 		$getUsersService = new GetUsersService(new UserRepositoryMySql());
-		return Response::render("users/users.php", ['users' => $getUsersService->run()]);
+		$getAllRolesService = new GetAllRolesService(new RolRepositoryMySql());
+
+		return Response::render("users/users.php", [
+			'users' => $getUsersService->run(),
+			'rols' => $getAllRolesService->run()
+		]);
 	}
 
 	public function create()
@@ -43,7 +51,8 @@ class UserController
 				$_POST["name"],
 				$_POST["username"],
 				$_POST["password"],
-				$_FILES["photo"]
+				$_POST["rolID"],
+				isset($_FILES["photo"]) ? $_FILES["photo"] : null
 			);
 
 			return Response::json([
@@ -112,8 +121,9 @@ class UserController
 				$request->params->id,
 				$request->body->name,
 				$request->body->username,
+				$request->body->rolID,
 				$request->body->password,
-				isset($_FILES["photo"])? $_FILES["photo"] : null,
+				isset($_FILES["photo"]) ? $_FILES["photo"] : null,
 				$request->body->photoUrl
 			);
 
@@ -145,5 +155,28 @@ class UserController
 			'error' => false,
 			'message' => 'Se elimino el usuario correctamente.'
 		], 200);
+	}
+
+	public function changeActive($request)
+	{
+		try {
+
+			$changeActiveUserService = new ChangeActiveUserService(new UserRepositoryMySql());
+
+			$active = $changeActiveUserService->run($request->params->id);
+
+			return Response::json([
+				'error' => false,
+				'message' => 'Se elimino el usuario correctamente.',
+				'data' => [
+					'active' => $active
+				]
+			], 200);
+		} catch (CustomException $e) {
+			return Response::json([
+				'error' => true,
+				'message' => $e->getMessage()
+			], $e->getHttpCode());
+		}
 	}
 }
