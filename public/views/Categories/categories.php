@@ -1,3 +1,8 @@
+<?php
+include "add.php";
+include "edit.php";
+?>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -5,12 +10,12 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Usuarios</h1>
+					<h1>Categorias</h1>
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="main">Inicio</a></li>
-						<li class="breadcrumb-item active">Usuarios</li>
+						<li class="breadcrumb-item active">Categorias</li>
 					</ol>
 				</div>
 			</div>
@@ -24,8 +29,8 @@
 		<div class="card">
 
 			<div class="card-header">
-				<button class="btn btn-primary" data-toggle="modal" data-target="#AddUserModal">
-					Agregar Usuario
+				<button class="btn btn-primary" data-toggle="modal" data-target="#AddCategoryModal">
+					Agregar Categoria
 				</button>
 			</div>
 
@@ -49,16 +54,16 @@
 								";
 
 							echo ($category->getActive()) ?
-									"<td><button class='btn btn-success btn-xs btn-Active' userId='{$category->getId()}'>Activo</button></td>" :
-									"<td><button class='btn btn-danger btn-xs btn-Active' userId='{$category->getId()}'>Inactivo</button></td>";
+									"<td><button class='btn btn-success btn-xs btn-Active' categoryId='{$category->getId()}'>Activo</button></td>" :
+									"<td><button class='btn btn-danger btn-xs btn-Active' categoryId='{$category->getId()}'>Inactivo</button></td>";
 
 							echo "
 									<td>
 										<div class='btn-group'>
-											<button class='btn btn-warning text-white m-0 btn-UserEdit' userId='{$category->getId()}' data-toggle='modal' data-target='#EditUserModal'>
+											<button class='btn btn-warning text-white m-0 btn-CategoryEdit' categoryId='{$category->getId()}' data-toggle='modal' data-target='#EditCategoryModal'>
 												<i class='fas fa-pencil-alt'></i>
 											</button>
-											<button class='btn btn-danger text-white m-0 btn-DeleteUser' userId='{$category->getId()}'>
+											<button class='btn btn-danger text-white m-0 btn-DeleteCategory' categoryId='{$category->getId()}'>
 												<i class='fas fa-times'></i>
 											</button>
 										</div>
@@ -83,3 +88,5 @@
 	<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<script src="public/views/Categories/categories.js"></script>
