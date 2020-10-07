@@ -11,7 +11,7 @@ class Product
 	private $stock;
 	private $purchasePrice;
 	private $salePrice;
-	private $numOfSales;
+	private $numOfSales = 0;
 	private $created_at;
 	private $active;
 	private $fK_categoryId;

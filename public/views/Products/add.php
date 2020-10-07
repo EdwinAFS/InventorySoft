@@ -27,13 +27,13 @@
 						<div class="col">
 							<div class="form-group">
 								<label for="purchasePrice">Compra</label>
-								<input type="number" class="form-control input-lg" name="purchasePrice" id="purchasePrice" placeholder="Ingrese el precio de compra">
+								<input type="number" step="any" class="form-control input-lg" name="purchasePrice" id="purchasePrice" placeholder="Ingrese el precio de compra">
 							</div>
 						</div>
 						<div class="col">
 							<div class="form-group">
 								<label for="salePrice">Venta</label>
-								<input type="number" class="form-control input-lg" name="salePrice" id="salePrice" placeholder="Ingrese el precio de venta">
+								<input type="number" step="any" class="form-control input-lg" name="salePrice" id="salePrice" placeholder="Ingrese el precio de venta">
 							</div>
 						</div>
 					</div>

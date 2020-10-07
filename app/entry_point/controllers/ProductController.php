@@ -33,12 +33,18 @@ class ProductController
 		]);
 	}
 
+	private function validate( $request ){
+		return 
+			!preg_match('/^[a-zA-Z0-9ñÑáéíóúáéíóúÁÉÍÓÚ ]+$/', $request->body->description ) &&
+			!preg_match('/^[0-9]+$/', $request->body->stock ) &&
+			!preg_match('/^[0-9.]+$/', $request->body->salePrice ) &&
+			!preg_match('/^[0-9.]+$/', $request->body->purchasePrice );
+	}
+
 	public function create($request)
 	{
 		try {
-			if (
-				!preg_match('/^[a-zA-Z0-9ñÑáéíóúáéíóúÁÉÍÓÚ ]+$/', $_POST["description"])
-			) {
+			if ( $this->validate($request) ) {
 				return Response::json([
 					"error" => true,
 					'message' => 'Campos con valores invalidos.'
@@ -111,9 +117,7 @@ class ProductController
 	public function update($request)
 	{
 		try {
-			if (
-				!preg_match('/^[a-zA-Z0-9ñÑáéíóúáéíóúÁÉÍÓÚ ]+$/', $request->body->description)
-			) {
+			if ( $this->validate($request) ) {
 				return Response::json([
 					"error" => true,
 					'message' => 'Campos con valores invalidos.'

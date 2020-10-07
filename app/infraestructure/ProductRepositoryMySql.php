@@ -116,6 +116,7 @@ class ProductRepositoryMySql implements ProductRepository
 		$product->setId($productData['ProductId']);
 		$product->setImg($productData['Img']);
 		$product->setActive($productData['Active']);
+		$product->setNumOfSales($productData['NumOfSales']);
 
 		return $product;
 	}
@@ -128,7 +129,7 @@ class ProductRepositoryMySql implements ProductRepository
 	}
 
 	public function findByCod(String $cod){
-		$query = "SELECT * FROM $this->table WHERE cod = $cod";
+		$query = "SELECT * FROM $this->table WHERE cod = '$cod'";
 		$connection = Connection::connect()->prepare($query);
 		$connection->execute();
 
