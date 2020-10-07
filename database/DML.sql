@@ -17,8 +17,3 @@ VALUES (
 	'2020-09-15 00:56:40',
 	1
 );
-
-INSERT INTO 
-	rols (description, active)
-VALUES 
-	('Test', 1);

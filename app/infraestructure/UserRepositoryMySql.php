@@ -86,7 +86,7 @@ class UserRepositoryMySql implements UserRepository
 			return null;
 		}
 
-		$user = User::forUpdate($userData['id'], $userData['name'], $userData['username'], $userData['rolID'], $userData['password']);		;
+		$user = User::forUpdate($userData['id'], $userData['name'], $userData['username'], $userData['rolID'], $userData['password']);
 		$user->setId($userData['id']);
 		$user->setPhoto($userData['photo']);
 		$user->setActive($userData['active']);

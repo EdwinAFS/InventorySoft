@@ -46,3 +46,28 @@ CREATE TABLE Categories(
 	PRIMARY KEY (CategoriesId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+/* PRODUCTO */
+
+CREATE TABLE Products(
+	ProductId int AUTO_INCREMENT,
+	Cod VARCHAR(50) NOT NULL,
+	Description VARCHAR(50) NOT NULL,
+	Img text DEFAULT NULL,
+	Stock int NOT NULL DEFAULT 0,
+	PurchasePrice FLOAT,
+	SalePrice FLOAT NOT NULL,
+	NumOfSales INT DEFAULT 0,
+	Created_at TIMESTAMP DEFAULT now,
+	Active CHAR(1) NOT NULL DEFAULT 1,
+	FK_categoryId int,
+	PRIMARY KEY (productId)
+) 
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE Products ADD FOREIGN KEY (FK_CategoryId) REFERENCES Categories(CategoriesId);
+
+ALTER TABLE Products ADD COLUMN delete_at timestamp null;
+
+ALTER TABLE Products ALTER NumOfSales SET DEFAULT 0;
+
+

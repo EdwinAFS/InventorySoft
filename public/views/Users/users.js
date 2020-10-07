@@ -90,7 +90,6 @@ $(document).on("click", "#btnAddUser", function (e) {
         alert.errorAlert(response.message, response.detail);
       } else {
         alert.successAlert(response.message);
-        resetForm();
       }
     });
 });
