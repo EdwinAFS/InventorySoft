@@ -65,7 +65,7 @@ class ProductController
 
 			return Response::json([
 				'error' => false,
-				'message' => 'Se creo la categoria correctamente.'
+				'message' => 'Se creo el producto correctamente.'
 			], 201);
 		} catch (CustomException $e) {
 			return Response::json([
@@ -93,7 +93,7 @@ class ProductController
 			if (!$product) {
 				return Response::json([
 					'error' => true,
-					'message' => 'La categoria no existe.'
+					'message' => 'El producto no existe.'
 				], 404);
 			}
 			return Response::json([
@@ -140,7 +140,7 @@ class ProductController
 
 			return Response::json([
 				'error' => false,
-				'message' => 'Se actualizo la categoria correctamente.'
+				'message' => 'Se actualizo el producto correctamente.'
 			], 200);
 		} catch (CustomException $e) {
 			return Response::json([
@@ -164,7 +164,7 @@ class ProductController
 
 			return Response::json([
 				'error' => false,
-				'message' => 'Se elimino la categoria correctamente.'
+				'message' => 'Se elimino el producto correctamente.'
 			], 200);
 		} catch (CustomException $e) {
 			return Response::json([
@@ -188,7 +188,7 @@ class ProductController
 
 			return Response::json([
 				'error' => false,
-				'message' => 'Se elimino la categoria correctamente.',
+				'message' => 'Se elimino el producto correctamente.',
 				'data' => [
 					'active' => $active
 				]

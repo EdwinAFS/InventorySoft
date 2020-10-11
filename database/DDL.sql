@@ -70,4 +70,21 @@ ALTER TABLE Products ADD COLUMN delete_at timestamp null;
 
 ALTER TABLE Products ALTER NumOfSales SET DEFAULT 0;
 
+/* CUSTOMER */
+
+CREATE TABLE Customers(
+	CustomerId int AUTO_INCREMENT,
+	Name VARCHAR(100) NOT NULL,
+	Identification VARCHAR(30) NOT NULL,
+	Email VARCHAR(250) NOT NULL,
+	Phone VARCHAR(30) NULL,
+	Address VARCHAR(250) NOT NULL,
+	Birthdate DATE NOT NULL, 
+	Created_at TIMESTAMP DEFAULT now(),
+	Active CHAR(1) NOT NULL DEFAULT 1,
+	Deleted_at TIMESTAMP NULL,
+
+	PRIMARY KEY (CustomerId)
+); 
+
 
