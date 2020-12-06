@@ -48,6 +48,7 @@
 						<p> Clientes </p>
 					</a>
 				</li>
+
 				<li class="nav-item has-treeview">
 					<a href="sale" class="nav-link">
 						<i class="nav-icon fa fa-list-ul"></i>
@@ -55,9 +56,15 @@
 					</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item">
-							<a href="#" class="nav-link">
+							<a href="sale" class="nav-link">
 							<i class="far fa-circle nav-icon"></i>
-							<p>Ventas v1</p>
+							<p>Ventas</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="sale/report" class="nav-link">
+							<i class="far fa-circle nav-icon"></i>
+							<p>Reporte</p>
 							</a>
 						</li>
 					</ul>

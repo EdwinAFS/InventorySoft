@@ -33,6 +33,10 @@
 	<script src="public/libraries/sweetalert2/sweetalert2.min.js"></script>
 	<!-- jQuery -->
 	<script src="public/libraries/jquery/jquery.min.js"></script>
+	<!-- daterangepicker -->
+	<link rel="stylesheet" href="public/libraries/daterangepicker/daterangepicker.css">
+
+	<link rel="stylesheet" href="public/libraries/chart.js/chart.min.css">
 
 	
 	<link rel="icon" href="public/img/logo.png">
@@ -65,7 +69,13 @@
 	<script src="public/libraries/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 	<script src="public/libraries/datatables-responsive/js/dataTables.responsive.min.js"></script>
 	<script src="public/libraries/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-	
+	<script src="https://opensource.teamdf.com/number/jquery.number.js"></script>
+	<!-- daterangepicker -->
+	<script src="public/libraries/daterangepicker/moment.min.js"></script>
+	<script src="public/libraries/daterangepicker/daterangepicker.js"></script>
+	<!-- chartjs -->
+	<script src="public/libraries/chart.js/chart.min.js"></script>
+
 	<script src="public/js/main.js"></script>
 	
 </body>

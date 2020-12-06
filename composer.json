@@ -5,7 +5,9 @@
 			"Config\\": ["config"],
 			"Framework\\": ["framework"],
 			"Public\\": ["public"],
-			"Templates\\": ["templates"]
+			"Libs\\": ["public\\libraries"],
+			"Templates\\": ["templates"],
+			"Resources\\": ["resources"]
 		}
 	}   
   }

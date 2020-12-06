@@ -3,6 +3,7 @@ INSERT INTO
 VALUES 
 	(1, 'Administrador', 'Admin', 1),
 	(2, 'Vendedor', 'Vendedor', 1);
+	
 
 INSERT 
 	INTO users (id, name, username, password, photo, active, created_at, last_login, rolID)
@@ -17,3 +18,12 @@ VALUES (
 	'2020-09-15 00:56:40',
 	1
 );
+
+INSERT INTO 
+	paymentmethods (PaymentMethodId, description, active)
+VALUES 
+	(NULL, 'Debido', 1),
+	(NULL, 'Credito', 1),
+	(NULL, 'Efectivo', 1);
+
+	

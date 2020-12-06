@@ -41,6 +41,7 @@ class LoginController
 
 			$_SESSION["isAuth"] = true;
 			$_SESSION["name"] = $user->getName();
+			$_SESSION["id"] = $user->getId();
 			$_SESSION["username"] = $user->getUsername();
 
 			return Response::json([
