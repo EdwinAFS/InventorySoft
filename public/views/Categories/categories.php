@@ -14,7 +14,7 @@ include "edit.php";
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="main">Inicio</a></li>
+						<li class="breadcrumb-item"><a href="home">Inicio</a></li>
 						<li class="breadcrumb-item active">Categorias</li>
 					</ol>
 				</div>

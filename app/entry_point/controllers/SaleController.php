@@ -10,6 +10,7 @@ use App\Application\Sale\DeleteSaleService;
 use App\Application\Sale\FindByIdService;
 use App\Application\Sale\GetAllSalesService;
 use App\Application\Sale\PrintSaleService;
+use App\Application\Sale\ReportSalesService;
 use App\Application\Sale\UpdateSaleService;
 use App\Domain\exception\CustomException;
 use App\Infraestructure\CustomerRepositoryMySql;
@@ -286,12 +287,35 @@ class SaleController
 		}
 	}
 	
-	public function report($request)
+	public function report()
 	{
-		return Response::render("Sales/report/report.php",[
-			"sales" => [
+		return Response::render("Sales/report/report.php");
+	}
 
-			]
-		]);
+	public function reportData($request)
+	{
+		try {
+			$reportSalesService = new ReportSalesService(new SaleRepositoryMySql());
+
+			$reportSales = $reportSalesService->run( 
+				isset($request->params->startDate)? $request->params->startDate :'',
+				isset($request->params->endDate)? $request->params->endDate :''
+			);
+			
+			return Response::json([
+				'data' => $reportSales
+			], 200);
+		} catch (CustomException $e) {
+			return Response::json([
+				'error' => true,
+				'message' => $e->getMessage()
+			], $e->getHttpCode());
+		} catch (Exception $e) {
+			return Response::json([
+				'error' => true,
+				'message' => 'Ocurrio un error en el servidor.',
+				'detail' => $e->getMessage()
+			], 500);
+		}
 	}
 }

@@ -70,7 +70,10 @@ $(document).on("click", "#btnEditSale", function (e) {
 		.catch((error) => alert.errorAlert(error));
 });
 
-function getDataForTableForSales( startDate = moment().format("YYYY-M-D"), endDate = moment().format("YYYY-M-D") ) {
+function getDataForTableForSales(
+	startDate = moment().format("YYYY-M-D"),
+	endDate = moment().format("YYYY-M-D")
+) {
 	table = $("#saleTable");
 
 	table.DataTable().destroy();
@@ -197,12 +200,13 @@ $(function () {
 			endDate: moment(),
 		},
 		function (start, end) {
-			$('#date_range span').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'))
-			startDate = start.format('YYYY-MM-DD');
-			endDate = end.format('YYYY-MM-DD');
-			
-			getDataForTableForSales( startDate, endDate );
+			$("#date_range span").html(
+				start.format("YYYY-MM-DD") + " - " + end.format("YYYY-MM-DD")
+			);
+			startDate = start.format("YYYY-MM-DD");
+			endDate = end.format("YYYY-MM-DD");
 
+			getDataForTableForSales(startDate, endDate);
 		}
 	);
 });

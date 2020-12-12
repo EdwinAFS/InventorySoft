@@ -10,13 +10,14 @@ use App\Domain\models\SaleProduct;
 use App\Domain\models\User;
 use App\Domain\repositories\SaleRepository;
 use App\Infraestructure\Connection;
+use JsonSerializable;
 use PDO;
 
 class SaleRepositoryMySql implements SaleRepository
 {
 	private $table = 'sales';
 
-	public function all( $startDate, $endDate )
+	public function all($startDate, $endDate)
 	{
 		$query = "SELECT 
 					S.*, 
@@ -183,7 +184,7 @@ class SaleRepositoryMySql implements SaleRepository
 
 	public function findById(String $id)
 	{
-		$query="SELECT 
+		$query = "SELECT 
 					S.*,
 					PM.Description as PMDescription, 
 					SPM.FK_PaymentMethodId
@@ -207,11 +208,11 @@ class SaleRepositoryMySql implements SaleRepository
 		$saleObj->setCreated_at($saleData['Created_at']);
 		$saleObj->setActive($saleData['Active']);
 		$saleObj->setDeleted_at($saleData['Deleted_at']);
-		
-		$paymentMethodObj = new PaymentMethod($saleData['PMDescription']);
-		$saleObj->setPaymentMethod( $paymentMethodObj );
 
-		$query="SELECT 
+		$paymentMethodObj = new PaymentMethod($saleData['PMDescription']);
+		$saleObj->setPaymentMethod($paymentMethodObj);
+
+		$query = "SELECT 
 					SP.FK_SaleId, 
 					SP.FK_ProductId, 
 					SP.ProductQuantity,
@@ -233,16 +234,24 @@ class SaleRepositoryMySql implements SaleRepository
 		foreach ($connection->fetchAll() as $saleProduct) {
 
 			$saleProductObj = new SaleProduct(
-				$saleProduct['FK_SaleId'], $saleProduct['FK_ProductId'], $saleProduct['ProductQuantity'], $saleProduct['TotalPayment']
-			);			
-
-			$product = new Product(
-				$saleProduct['Cod'], $saleProduct['Description'], $saleProduct['Stock'], $saleProduct['PurchasePrice'], $saleProduct['SalePrice'], $saleProduct['FK_categoryId']
+				$saleProduct['FK_SaleId'],
+				$saleProduct['FK_ProductId'],
+				$saleProduct['ProductQuantity'],
+				$saleProduct['TotalPayment']
 			);
 
-			$saleProductObj->setProduct( $product );
+			$product = new Product(
+				$saleProduct['Cod'],
+				$saleProduct['Description'],
+				$saleProduct['Stock'],
+				$saleProduct['PurchasePrice'],
+				$saleProduct['SalePrice'],
+				$saleProduct['FK_categoryId']
+			);
 
-			$saleObj->addSaleProducts( $saleProductObj );	
+			$saleProductObj->setProduct($product);
+
+			$saleObj->addSaleProducts($saleProductObj);
 		}
 
 		return $saleObj;
@@ -262,12 +271,12 @@ class SaleRepositoryMySql implements SaleRepository
 			$query = "UPDATE salepaymentmethod  SET Deleted_at = now()  WHERE FK_SaleId = '$id'";
 			$queryPrepare = $connection->prepare($query);
 			$queryPrepare->execute();
-			
+
 			$query = "UPDATE saleproduct  SET Deleted_at = now()  WHERE FK_SaleId = '$id'";
 			$queryPrepare = $connection->prepare($query);
 			$queryPrepare->execute();
-			
-			$query="SELECT 
+
+			$query = "SELECT 
 						FK_ProductId,
 						ProductQuantity
 					FROM	
@@ -278,7 +287,7 @@ class SaleRepositoryMySql implements SaleRepository
 			$queryPrepare->execute();
 
 			foreach ($queryPrepare->fetchAll() as $product) {
-				$query = "UPDATE products SET Stock = Stock + " . $product["ProductQuantity"] . " WHERE ProductId = '".$product["FK_ProductId"]."'";
+				$query = "UPDATE products SET Stock = Stock + " . $product["ProductQuantity"] . " WHERE ProductId = '" . $product["FK_ProductId"] . "'";
 				$queryPrepare = $connection->prepare($query);
 				$queryPrepare->execute();
 			}
@@ -290,6 +299,80 @@ class SaleRepositoryMySql implements SaleRepository
 			}
 
 			throw $e;
+		}
+	}
+
+	public function report($startDate, $endDate)
+	{
+
+		$connection = Connection::connect();
+		$sql = "";
+		$response = [];
+
+		/* VENTAS POR MES */
+		$sql = "SELECT 
+					MONTH(Created_at) AS Month, 
+					YEAR(Created_at) AS Year, 
+					SUM(NetPay) AS Total 
+				FROM 
+					sales 
+				WHERE
+					DATE(Created_at) BETWEEN '$startDate' AND '$endDate'
+				GROUP BY 
+					MONTH(Created_at), YEAR(Created_at) 
+				ORDER BY 
+					YEAR(Created_at), MONTH(Created_at)";
+		$query = $connection->prepare($sql);
+		$query->execute();
+		
+		while($row=$query->fetch(PDO::FETCH_ASSOC)){
+  			$response['SalesMonth'][] = $row;
+	  	}
+		
+		/* TOP 10 DE LOS PRODUCTO MAS VENDIDOS */
+		$sql = "SELECT 
+					P.Description, 
+					SUM(SA.ProductQuantity) AS ProductQuantity
+				FROM 
+					saleproduct SA
+				INNER JOIN 
+					products P ON SA.FK_productId = P.ProductId
+				WHERE
+					DATE(SA.Created_at) BETWEEN '$startDate' AND '$endDate'
+				GROUP BY 
+					SA.FK_productId
+				ORDER BY 
+					ProductQuantity DESC
+				LIMIT 
+					10";
+		$query = $connection->prepare($sql);
+		$query->execute();
+		while($row=$query->fetch(PDO::FETCH_ASSOC)){
+			$response['TopProducts'][] = $row;
 		}		
+		/* TOP 3 VENDEDORES CON MAS VENTAS */
+		$sql = "SELECT 
+					Name, 
+					photo,
+					SUM(NetPay) AS Total 
+				FROM 
+					sales S
+				INNER JOIN 
+					users U ON S.FK_sellerId = U.id
+				WHERE
+					DATE(S.Created_at) BETWEEN '$startDate' AND '$endDate'
+				GROUP BY 
+					S.FK_sellerId
+				ORDER BY 
+					Total
+				LIMIT
+					3";
+		$query = $connection->prepare($sql);
+		$query->execute();
+		while($row=$query->fetch(PDO::FETCH_ASSOC)){
+			$response['TopSellers'][] = $row;
+		}
+
+		return $response;
 	}
 }

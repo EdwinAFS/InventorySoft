@@ -9,4 +9,5 @@ interface SaleRepository {
 	public function update( Sale $sale );
 	public function findById(String $id);
 	public function all( $startDate, $endDate );
+	public function report( $startDate, $endDate );
 }

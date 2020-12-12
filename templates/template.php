@@ -35,14 +35,15 @@
 	<script src="public/libraries/jquery/jquery.min.js"></script>
 	<!-- daterangepicker -->
 	<link rel="stylesheet" href="public/libraries/daterangepicker/daterangepicker.css">
-
+	<!-- chartjs -->
+	<script src="public/libraries/chart.js/chart.min.js"></script>
 	<link rel="stylesheet" href="public/libraries/chart.js/chart.min.css">
 
 	
 	<link rel="icon" href="public/img/logo.png">
 </head>
 
-<body class="hold-transition sidebar-collapse sidebar-mini ">
+<body class="hold-transition sidebar-collapse sidebar-mini layout-fixed">
 
 	<?php
 		if ( !$screenComplete ) {
@@ -73,8 +74,6 @@
 	<!-- daterangepicker -->
 	<script src="public/libraries/daterangepicker/moment.min.js"></script>
 	<script src="public/libraries/daterangepicker/daterangepicker.js"></script>
-	<!-- chartjs -->
-	<script src="public/libraries/chart.js/chart.min.js"></script>
 
 	<script src="public/js/main.js"></script>
 	
