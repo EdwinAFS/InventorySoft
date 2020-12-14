@@ -43,6 +43,8 @@ class LoginController
 			$_SESSION["name"] = $user->getName();
 			$_SESSION["id"] = $user->getId();
 			$_SESSION["username"] = $user->getUsername();
+			
+			$_SESSION["rolCode"] = $user->getRol()->getCode();
 
 			return Response::json([
 				"error" => false,
@@ -74,6 +76,12 @@ class LoginController
 			return true;
 		}
 		return false;
+	}
+
+	public function rol(){
+		return Response::json([
+			'rolCode' => $_SESSION['rolCode']
+		], 200);
 	}
 
 	public function logout()

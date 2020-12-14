@@ -29,9 +29,16 @@ include "edit.php";
 		<div class="card">
 
 			<div class="card-header">
-				<button class="btn btn-primary" data-toggle="modal" data-target="#AddCategoryModal">
-					Agregar Categoria
-				</button>
+				
+				<?php
+
+				echo in_array($_SESSION["rolCode"], ["Admin", "InventoryManager"]) ?
+					'<button class="btn btn-primary" data-toggle="modal" data-target="#AddCategoryModal">
+						Agregar Categoria
+					</button>' : "";
+
+				?>
+
 			</div>
 
 			<div class="card-body">
@@ -54,18 +61,21 @@ include "edit.php";
 								";
 
 							echo ($category->getActive()) ?
-									"<td><button class='btn btn-success btn-xs btn-Active' categoryId='{$category->getId()}'>Activo</button></td>" :
-									"<td><button class='btn btn-danger btn-xs btn-Active' categoryId='{$category->getId()}'>Inactivo</button></td>";
+									"<td class='cell'><button class='btn btn-success btn-xs btn-Active' categoryId='{$category->getId()}'>Activo</button></td>" :
+									"<td class='cell'><button class='btn btn-danger btn-xs btn-Active' categoryId='{$category->getId()}'>Inactivo</button></td>";
 
 							echo "
-									<td>
+									<td class='cell'>
 										<div class='btn-group'>
-											<button class='btn btn-warning text-white m-0 btn-CategoryEdit' categoryId='{$category->getId()}' data-toggle='modal' data-target='#EditCategoryModal'>
-												<i class='fas fa-pencil-alt'></i>
-											</button>
-											<button class='btn btn-danger text-white m-0 btn-DeleteCategory' categoryId='{$category->getId()}'>
-												<i class='fas fa-times'></i>
-											</button>
+											".( (in_array($_SESSION["rolCode"], ["Admin", "InventoryManager"]) )? 
+												"
+												<button class='btn btn-warning text-white m-0 btn-CategoryEdit' categoryId='{$category->getId()}' data-toggle='modal' data-target='#EditCategoryModal'>
+													<i class='fas fa-pencil-alt'></i>
+												</button>
+												<button class='btn btn-danger text-white m-0 btn-DeleteCategory' categoryId='{$category->getId()}'>
+													<i class='fas fa-times'></i>
+												</button>" : "No disponible" )."
+											
 										</div>
 									</td>
 								</tr>
@@ -76,10 +86,6 @@ include "edit.php";
 
 					</tbody>
 				</table>
-			</div>
-
-			<div class="card-footer">
-				Footer
 			</div>
 
 		</div>

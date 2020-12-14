@@ -2,6 +2,7 @@
 
 namespace App\Infraestructure;
 
+use App\Domain\models\Rol;
 use App\Domain\models\User;
 use App\Domain\repositories\UserRepository;
 use App\Infraestructure\Connection;
@@ -69,14 +70,14 @@ class UserRepositoryMySql implements UserRepository
 
 	public function delete(string $id)
 	{
-		$query = "UPDATE $this->table  SET Active = 0 WHERE id = '$id'";
+		$query = "UPDATE $this->table  SET Delete_at = now() WHERE id = '$id'";
 		$connection = Connection::connect()->prepare($query);
 		$connection->execute();
 	}
 
 	public function findById(String $id)
 	{
-		$query = "SELECT * FROM $this->table WHERE id = '$id'";
+		$query = "SELECT U.*, R.code, R.description FROM $this->table U INNER JOIN rols R ON U.rolID = R.id WHERE U.id = '$id' AND R.active = 1";
 		$connection = Connection::connect()->prepare($query);
 		$connection->execute();
 
@@ -91,6 +92,12 @@ class UserRepositoryMySql implements UserRepository
 		$user->setPhoto($userData['photo']);
 		$user->setActive($userData['active']);
 		$user->setLastLogin($userData['last_login']);
+
+		$rol = new Rol($userData['description']);
+		$rol->setCode($userData['code']);
+
+		$user->setRol($rol);
+		
 		return $user;
 	}
 
@@ -116,7 +123,7 @@ class UserRepositoryMySql implements UserRepository
 
 	public function users()
 	{
-		$connection = Connection::connect()->prepare("SELECT * FROM $this->table");
+		$connection = Connection::connect()->prepare("SELECT U.*, R.description FROM $this->table U INNER JOIN rols R ON U.rolID = R.id WHERE U.Deleted_at is null");
 		$connection->execute();
 
 		$users = [];
@@ -126,6 +133,11 @@ class UserRepositoryMySql implements UserRepository
 			$userObj->setPhoto($user['photo']);
 			$userObj->setActive($user['active']);
 			$userObj->setLastLogin($user['last_login']);
+
+			$rolObj = new Rol($user['description']);
+
+			$userObj->setRol($rolObj);
+			
 			array_push($users, $userObj);
 		}
 

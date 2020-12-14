@@ -61,12 +61,14 @@
 							<p>Ventas</p>
 							</a>
 						</li>
-						<li class="nav-item">
-							<a href="sale/report" class="nav-link">
-							<i class="far fa-circle nav-icon"></i>
-							<p>Reporte</p>
-							</a>
-						</li>
+						<?php
+						echo ( $_SESSION["rolCode"] == 'Admin')? '<li class="nav-item">
+										<a href="sale/report" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>Reporte</p>
+										</a>
+									</li>': '';
+						?>
 					</ul>
 				</li>
 				

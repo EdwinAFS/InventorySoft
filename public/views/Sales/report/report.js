@@ -62,7 +62,7 @@ $(document).ready(function () {
 
 });
 
-function loadCharts(startDate, endDate) {
+function loadCharts(startDate = moment().subtract(29, "days").format("YYYY-MM-DD"), endDate = moment().format("YYYY-MM-DD")) {
 	fetch(`./sale/reportData?startDate=${startDate}&endDate=${endDate}`)
 		.then((res) => res.json())
 		.then((response) => {

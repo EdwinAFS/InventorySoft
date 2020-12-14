@@ -15,7 +15,7 @@ class ProductRepositoryMySql implements ProductRepository
 	{
 		$filterForLimit = $limit > 0? "LIMIT $limit OFFSET $offset" : "";
 
-		$query = "SELECT * FROM $this->table WHERE delete_at is null $filterForLimit"; 
+		$query = "SELECT * FROM $this->table WHERE Deleted_at is null $filterForLimit"; 
 
 		$connection = Connection::connect()->prepare( $query );
 		$connection->execute();
@@ -123,7 +123,7 @@ class ProductRepositoryMySql implements ProductRepository
 
 	public function delete(string $id)
 	{
-		$query = "UPDATE $this->table  SET delete_at = now()  WHERE ProductId = '$id'";
+		$query = "UPDATE $this->table  SET Deleted_at = now()  WHERE ProductId = '$id'";
 		$connection = Connection::connect()->prepare($query);
 		$connection->execute();
 	}

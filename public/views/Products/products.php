@@ -1,4 +1,3 @@
-
 <!-- iCheck -->
 <link rel="stylesheet" href="public/libraries/icheck-bootstrap/icheck-bootstrap.min.css">
 
@@ -35,9 +34,15 @@ include "edit.php";
 		<div class="card">
 
 			<div class="card-header">
-				<button class="btn btn-primary" data-toggle="modal" data-target="#AddProductModal">
-					Agregar Producto
-				</button>
+				<?php
+
+				echo in_array($_SESSION["rolCode"], ["Admin", "InventoryManager"]) ?
+					'<button class="btn btn-primary" data-toggle="modal" data-target="#AddProductModal">
+						Agregar Producto
+					</button>' : "";
+
+				?>
+
 			</div>
 
 			<div class="card-body">
@@ -52,13 +57,10 @@ include "edit.php";
 							<th>Accion</th>
 						</tr>
 					</thead>
-					
+
 				</table>
 			</div>
 
-			<div class="card-footer">
-				Footer
-			</div>
 
 		</div>
 

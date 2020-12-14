@@ -13,7 +13,7 @@ class CategoryRepositoryMySql implements CategoryRepository
 
 	public function all()
 	{
-		$connection = Connection::connect()->prepare("SELECT * FROM $this->table");
+		$connection = Connection::connect()->prepare("SELECT * FROM $this->table WHERE Deleted_at is null");
 		$connection->execute();
 
 		$categories = [];
@@ -79,7 +79,7 @@ class CategoryRepositoryMySql implements CategoryRepository
 
 	public function delete(string $id)
 	{
-		$query = "UPDATE $this->table  SET Active = 0 WHERE CategoriesId = '$id'";
+		$query = "UPDATE $this->table  Deleted_at = now() WHERE CategoriesId = '$id'";
 		$connection = Connection::connect()->prepare($query);
 		$connection->execute();
 	}

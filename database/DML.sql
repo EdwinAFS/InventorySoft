@@ -2,7 +2,8 @@ INSERT INTO
 	rols (id, description, code, active)
 VALUES 
 	(1, 'Administrador', 'Admin', 1),
-	(2, 'Vendedor', 'Vendedor', 1);
+	(2, 'Vendedor', 'Seller', 1);
+	(2, 'Administrador de inventario', 'inventoryManager', 1);
 	
 
 INSERT 

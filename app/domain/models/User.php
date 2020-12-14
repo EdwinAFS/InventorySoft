@@ -12,6 +12,7 @@ class User
 	private $rolID;
 	private $lastLogin;
 	private $active;
+	private $rol;
 
 	private function __construct()
 	{
@@ -74,6 +75,10 @@ class User
 	{
 		$this->active = $active;
 	}
+	public function setRol($rol)
+	{
+		$this->rol = $rol;
+	}
 
 	/* GET */
 
@@ -108,6 +113,10 @@ class User
 	public function getActive()
 	{
 		return $this->active;
+	}
+	public function getRol()
+	{
+		return $this->rol;
 	}
 
 	public function get(){

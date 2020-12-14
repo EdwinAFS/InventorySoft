@@ -71,89 +71,97 @@ $(document).on("click", "#btnEditSale", function (e) {
 });
 
 function getDataForTableForSales(
-	startDate = moment().format("YYYY-M-D"),
-	endDate = moment().format("YYYY-M-D")
+	startDate = moment().subtract(29, "days").format("YYYY-MM-DD"),
+	endDate = moment().format("YYYY-MM-DD")
 ) {
-	table = $("#saleTable");
+	fetch("./login/rol")
+		.then((response) => response.json())
+		.then(({ rolCode }) => {
+			table = $("#saleTable");
 
-	table.DataTable().destroy();
+			table.DataTable().destroy();
 
-	table.DataTable({
-		order: [[7, "desc"]],
-		processing: true,
-		language: {
-			url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
-		},
-		ajax: {
-			type: "GET",
-			url: `./sale/datatable?startDate=${startDate}&endDate=${endDate}`,
-		},
-		columns: [
-			{
-				data: "Id",
-				render: function (data) {
-					return data;
+			table.DataTable({
+				order: [[7, "desc"]],
+				processing: true,
+				language: {
+					url: "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
 				},
-				visible: false,
-			},
-			{
-				data: "Cod",
-				render: function (data) {
-					return data;
+				ajax: {
+					type: "GET",
+					url: `./sale/datatable?startDate=${startDate}&endDate=${endDate}`,
 				},
-			},
-			{
-				data: "Customer.name",
-				render: function (data) {
-					return data;
-				},
-			},
-			{
-				data: "Seller.name",
-				render: function (data) {
-					return data;
-				},
-			},
-			{
-				data: "PaymentMethod.description",
-				render: function (data) {
-					return data;
-				},
-			},
-			{
-				data: "NetPay",
-				render: $.fn.dataTable.render.number(",", ".", 2),
-			},
-			{
-				data: "Total",
-				render: $.fn.dataTable.render.number(",", ".", 2),
-			},
-			{
-				data: "Created_at",
-				render: function (data) {
-					return data;
-				},
-			},
-			{
-				data: "",
-				render: function (data, type, row) {
-					return `
-		  	<td class='cell'>
-					<div class='btn-group'>
-						<button class='btn btn-primary text-white m-0 btn-SalePrint' saleId='${row.Id}'>
-							<i class="fas fa-print"></i>
-						</button>
-						<button class='btn btn-danger text-white m-0 btn-DeleteSale' saleId='${row.Id}'>
-							<i class='fas fa-times'></i>
-						</button>
-					</div>
-				</td>
-			</tr>`;
-				},
-				className: "cell",
-			},
-		],
-	});
+				columns: [
+					{
+						data: "Id",
+						render: function (data) {
+							return data;
+						},
+						visible: false,
+					},
+					{
+						data: "Cod",
+						render: function (data) {
+							return data;
+						},
+					},
+					{
+						data: "Customer.name",
+						render: function (data) {
+							return data;
+						},
+					},
+					{
+						data: "Seller.name",
+						render: function (data) {
+							return data;
+						},
+					},
+					{
+						data: "PaymentMethod.description",
+						render: function (data) {
+							return data;
+						},
+					},
+					{
+						data: "NetPay",
+						render: $.fn.dataTable.render.number(",", ".", 2),
+					},
+					{
+						data: "Total",
+						render: $.fn.dataTable.render.number(",", ".", 2),
+					},
+					{
+						data: "Created_at",
+						render: function (data) {
+							return data;
+						},
+					},
+					{
+						data: "",
+						render: function (data, type, row) {
+							return `
+							<td class='cell'>
+									<div class='btn-group'>
+										<button class='btn btn-primary text-white m-0 btn-SalePrint' saleId='${row.Id}'>
+											<i class="fas fa-print"></i>
+										</button>
+										${
+											rolCode == "Admin"
+												? `<button class='btn btn-danger text-white m-0 btn-DeleteSale' saleId='${row.Id}'>
+												<i class='fas fa-times'></i>
+											</button>`
+												: ""
+										}
+									</div>
+								</td>
+							</tr>`;
+						},
+						className: "cell",
+					},
+				],
+			});
+		});
 }
 
 $(function () {
@@ -208,5 +216,10 @@ $(function () {
 
 			getDataForTableForSales(startDate, endDate);
 		}
+	);
+	$("#date_range span").html(
+		moment().subtract(29, "days").format("YYYY-MM-DD") +
+			" - " +
+			moment().format("YYYY-MM-DD")
 	);
 });

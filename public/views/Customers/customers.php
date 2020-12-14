@@ -45,10 +45,7 @@ include "edit.php";
 							<th>Email</th>
 							<th>Telefono</th>
 							<th>Direccion</th>
-							<th>Fecha nacimiento</th>
-							<th>Total compras</th>
-							<th>Ultima compra</th>
-							<th>Ingreso al sistema</th>					
+							<th>Fecha nacimiento</th>				
 							<th>Estado</th>
 							<th>Accion</th>
 						</tr>
@@ -57,9 +54,7 @@ include "edit.php";
 				</table>
 			</div>
 
-		<!-- 	<div class="card-footer">
-				Footer
-			</div> -->
+
 
 		</div>
 
