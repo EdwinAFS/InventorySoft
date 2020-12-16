@@ -16,31 +16,31 @@
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<!-- jQuery -->
+	<script src="vendor\components\jquery\jquery.min.js"></script>
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="public/libraries/fontawesome-free/css/all.min.css">
+	<link rel="stylesheet" href="vendor\almasaeed2010\adminlte\plugins\fontawesome-free\css\all.min.css">
 	<!-- Ionicons -->
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	<!-- overlayScrollbars -->
-	<link rel="stylesheet" href="templates/dist/css/adminlte.css">
-	<link rel="stylesheet" href="templates/dist/css/main.css">
+	<link rel="stylesheet" href="public/css/main.css">
+	
+	<link rel="stylesheet" href="vendor\almasaeed2010\adminlte\dist\css\adminlte.min.css">
 	<!-- Google Font: Source Sans Pro -->
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 	<!-- DataTables -->
-	<link rel="stylesheet" href="public/libraries/datatables-bs4/css/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" href="public/libraries/datatables-responsive/css/responsive.bootstrap4.min.css">
+	<link rel="stylesheet" href="vendor\almasaeed2010\adminlte\plugins\datatables-bs4\css\dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="vendor\almasaeed2010\adminlte\plugins\datatables-responsive\css\responsive.bootstrap4.min.css">
 	<!-- SweetAlert2 -->
-	<link rel="stylesheet" href="public/libraries/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-	<script src="public/libraries/sweetalert2/sweetalert2.min.js"></script>
-	<!-- jQuery -->
-	<script src="public/libraries/jquery/jquery.min.js"></script>
+	<link rel="stylesheet" href="vendor\almasaeed2010\adminlte\plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.min.css">
 	<!-- daterangepicker -->
-	<link rel="stylesheet" href="public/libraries/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" href="vendor\almasaeed2010\adminlte\plugins\daterangepicker\daterangepicker.css">
 	<!-- chartjs -->
-	<script src="public/libraries/chart.js/chart.min.js"></script>
-	<link rel="stylesheet" href="public/libraries/chart.js/chart.min.css">
+	<script src="vendor\almasaeed2010\adminlte\plugins\chart.js\Chart.min.js"></script>
+	<link rel="stylesheet" href="vendor\almasaeed2010\adminlte\plugins\chart.js\Chart.min.css">
 
-	
 	<link rel="icon" href="public/img/logo.png">
+
 </head>
 
 <body class="hold-transition sidebar-collapse sidebar-mini layout-fixed">
@@ -60,23 +60,24 @@
 		}
 	?>
 	<!-- Bootstrap 4 -->
-	<script src="public/libraries/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="vendor\almasaeed2010\adminlte\plugins\bootstrap\js\bootstrap.bundle.min.js"></script>
 	<!-- AdminLTE App -->
-	<script src="templates/dist/js/adminlte.min.js"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="templates/dist/js/demo.js"></script>
+	<script src="vendor\almasaeed2010\adminlte\dist\js\adminlte.min.js"></script>
 	<!-- DataTables -->
-	<script src="public/libraries/datatables/jquery.dataTables.min.js"></script>
-	<script src="public/libraries/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-	<script src="public/libraries/datatables-responsive/js/dataTables.responsive.min.js"></script>
-	<script src="public/libraries/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<script src="vendor\almasaeed2010\adminlte\plugins\datatables\jquery.dataTables.min.js"></script>
+	<script src="vendor\almasaeed2010\adminlte\plugins\datatables-bs4\js\dataTables.bootstrap4.min.js"></script>
+	<script src="vendor\almasaeed2010\adminlte\plugins\datatables-responsive\js\dataTables.responsive.min.js"></script>
+	<script src="vendor\almasaeed2010\adminlte\plugins\datatables-responsive\js\responsive.bootstrap4.min.js"></script>
+	<!-- jquery.number -->
 	<script src="https://opensource.teamdf.com/number/jquery.number.js"></script>
 	<!-- daterangepicker -->
-	<script src="public/libraries/daterangepicker/moment.min.js"></script>
-	<script src="public/libraries/daterangepicker/daterangepicker.js"></script>
+	<script src="vendor\almasaeed2010\adminlte\plugins\daterangepicker\moment.min.js"></script>
+	<script src="vendor\almasaeed2010\adminlte\plugins\daterangepicker\daterangepicker.js"></script>
+	<!-- SweetAlert2 -->
+	<script src="vendor\almasaeed2010\adminlte\plugins\sweetalert2\sweetalert2.min.js"></script>
 
 	<script src="public/js/main.js"></script>
-	
+
 </body>
 
 </html>

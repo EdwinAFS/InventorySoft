@@ -1,5 +1,5 @@
 <!-- iCheck -->
-<link rel="stylesheet" href="public/libraries/icheck-bootstrap/icheck-bootstrap.min.css">
+<link rel="stylesheet" href="vendor\almasaeed2010\adminlte\plugins\icheck-bootstrap\icheck-bootstrap.min.css">
 
 <?php
 include "add.php";

@@ -1,13 +1,25 @@
 {
+    "name": "edwin/inventorysoft",
+    "authors": [
+        {
+            "name": "Edwin Fajardo",
+            "email": "alexander_suarez1997@hotmail.com"
+        }
+    ],
+	"require": {
+		"almasaeed2010/adminlte": "3.0.5",
+        "components/jquery": "^3.5",
+        "components/bootstrap": "^4.5"
+	},
 	"autoload": {
 		"psr-4": {		
-			"App\\": ["app"],
-			"Config\\": ["config"],
-			"Framework\\": ["framework"],
-			"Public\\": ["public"],
-			"Libs\\": ["public\\libraries"],
-			"Templates\\": ["templates"],
-			"Resources\\": ["resources"]
+			"App\\": ["app/"],
+			"Config\\": ["config/"],
+			"Framework\\": ["framework/"],
+			"Public\\": ["public/"],
+			"Libs\\": ["public\\libraries/"],
+			"Templates\\": ["templates/"],
+			"Resources\\": ["resources/"]
 		}
-	}   
-  }
+	}
+}

@@ -2,11 +2,9 @@
 
 namespace framework;
 
-require_once "../vendor/autoload.php";
+require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Framework\Config;
 use Framework\Response;
-use Framework\Error;
 
 require_once "../config/config.php";
 
