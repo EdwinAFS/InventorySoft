@@ -49,11 +49,11 @@
 						</div>
 					</div>
 
-					<div class="row d-flex justify-content-center pt-4">
+					<!-- <div class="row d-flex justify-content-center pt-4">
 						<div class="col-6">
 							<a href="forgot-password.html">Olvide mi contraseña</a>
 						</div>
-					</div>
+					</div> -->
 				</form>
 
 			</div>

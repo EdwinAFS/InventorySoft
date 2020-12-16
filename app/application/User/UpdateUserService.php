@@ -34,6 +34,7 @@ class UpdateUserService
 
 		$user->setActive( $userExists->getActive() );
 
+
 		if( $photo ){
 
 			if( !empty($previousPhotoUrl) ){
@@ -42,7 +43,9 @@ class UpdateUserService
 			
 			$photoUrl = $this->fileRepository->uploadImage($photo, "{$user->getId()}/avatar", 500, 500);
 			$user->setPhoto($photoUrl);
-		}
+		}else{
+			$user->setPhoto($previousPhotoUrl);
+		}		
 
 		$this->userRepository->update($user);
 	}

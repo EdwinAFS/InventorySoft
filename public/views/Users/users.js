@@ -54,7 +54,7 @@ $(document).on("click", "#btnEditUser", function (e) {
     rolID: formData.editRol,
     password: formData.editPassword,
     photoUrl: formData.photoUrl,
-    photo: document.querySelector("#editPhoto").files[0],
+    photo: document.querySelector("#editPhoto").files[0]
   };
 
   fetch(`./user/update?id=${data.id}`, {

@@ -37,8 +37,8 @@
 				</a>
 
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="#">Perfil</a>
-					<a class="dropdown-item" href="#">Cambiar contraseña</a>
+					<a class="dropdown-item" href="profile">Perfil</a>
+					<a class="dropdown-item" href="profile/changePassword">Cambiar contraseña</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" id="logout">Cerrar sesión</a>
 				</div>
