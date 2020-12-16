@@ -1,3 +1,3 @@
-1. ejecutar el en consola "composer dump-autoload"
+Ejecutar el comando 'composer install'
 
 En construcción...
