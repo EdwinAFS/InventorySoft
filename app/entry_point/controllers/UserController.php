@@ -51,7 +51,7 @@ class UserController
 				$_POST["name"],
 				$_POST["username"],
 				$_POST["password"],
-				$_POST["rolID"],
+				$_POST["rol"],
 				isset($_FILES["photo"]) ? $_FILES["photo"] : null
 			);
 
@@ -177,6 +177,34 @@ class UserController
 				'error' => true,
 				'message' => $e->getMessage()
 			], $e->getHttpCode());
+		}
+	}
+
+	public function datatable($request)
+	{
+		try {
+			$getUsersService = new GetUsersService(new UserRepositoryMySql());
+
+			$users = $getUsersService->run();
+
+			$users = array_map(function( $user ){
+				return array_merge($user->get(), ["rol" => $user->getRol()->getDescription()]);
+			} , $users);
+
+			return Response::json([
+				'data' => $users
+			], 200);
+		} catch (CustomException $e) {
+			return Response::json([
+				'error' => true,
+				'message' => $e->getMessage()
+			], $e->getHttpCode());
+		} catch (Exception $e) {
+			return Response::json([
+				'error' => true,
+				'message' => 'Ocurrio un error en el servidor.',
+				'detail' => $e->getMessage()
+			], 500);
 		}
 	}
 }

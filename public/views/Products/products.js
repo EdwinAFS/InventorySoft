@@ -43,21 +43,35 @@ $(document).on("click", ".btn-ProductEdit", function (e) {
 
 /* ELIMINAR UN PRODUCTO */
 $(document).on("click", ".btn-DeleteProduct", function (e) {
-	var productId = $(this).attr("productId");
+	Swal.fire({
+		title: "Estas seguro de eliminar este registro?",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "!Si, Estoy seguro!",
+		cancelButtonText: "Cancelar",
+	}).then((result) => {
+		if (!result.value) {
+			return;
+		}
 
-	fetch("./product/delete?id=" + productId, {
-		method: "DELETE",
-	})
-		.then((res) => res.json())
-		.then((response) => {
-			if (response.error) {
-				alert.errorAlert(response.message);
-			} else {
-				alert.successAlert(response.message);
-				$("#productTable").DataTable().ajax.reload();
-			}
+		var productId = $(this).attr("productId");
+
+		fetch("./product/delete?id=" + productId, {
+			method: "DELETE",
 		})
-		.catch((error) => alert.errorAlert(error));
+			.then((res) => res.json())
+			.then((response) => {
+				if (response.error) {
+					alert.errorAlert(response.message);
+				} else {
+					alert.successAlert(response.message);
+					$("#productTable").DataTable().ajax.reload();
+				}
+			})
+			.catch((error) => alert.errorAlert(error));
+	});
 });
 
 /* EDITAR UN PRODUCTO */
@@ -236,7 +250,6 @@ function getDataForTable() {
 	fetch("./login/rol")
 		.then((response) => response.json())
 		.then(({ rolCode }) => {
-
 			table = $("#productTable");
 
 			table.DataTable().destroy();
@@ -312,14 +325,15 @@ function getDataForTable() {
 								<td class='cell'>
 										<div class='btn-group'>
 											${
-												(["Admin", "InventoryManager"].includes(rolCode) ) ? 
-												`<button class='btn btn-warning text-white m-0 btn-ProductEdit' productId='${row.productId}' data-toggle='modal' data-target='#EditProductModal'>
+												["Admin", "InventoryManager"].includes(rolCode)
+													? `<button class='btn btn-warning text-white m-0 btn-ProductEdit' productId='${row.productId}' data-toggle='modal' data-target='#EditProductModal'>
 													<i class='fas fa-pencil-alt'></i>
 												</button>
 												<button class='btn btn-danger text-white m-0 btn-DeleteProduct' productId='${row.productId}'>
 													<i class='fas fa-times'></i>
 												</button>
-												` : 'No disponible'
+												`
+													: "No disponible"
 											}
 											
 										</div>

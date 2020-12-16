@@ -70,7 +70,7 @@ class UserRepositoryMySql implements UserRepository
 
 	public function delete(string $id)
 	{
-		$query = "UPDATE $this->table  SET Delete_at = now() WHERE id = '$id'";
+		$query = "UPDATE $this->table  SET Deleted_at = now() WHERE id = '$id'";
 		$connection = Connection::connect()->prepare($query);
 		$connection->execute();
 	}

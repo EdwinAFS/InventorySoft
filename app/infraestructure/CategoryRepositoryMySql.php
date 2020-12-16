@@ -79,7 +79,7 @@ class CategoryRepositoryMySql implements CategoryRepository
 
 	public function delete(string $id)
 	{
-		$query = "UPDATE $this->table  Deleted_at = now() WHERE CategoriesId = '$id'";
+		$query = "UPDATE $this->table SET Deleted_at = now() WHERE CategoriesId = '$id'";
 		$connection = Connection::connect()->prepare($query);
 		$connection->execute();
 	}

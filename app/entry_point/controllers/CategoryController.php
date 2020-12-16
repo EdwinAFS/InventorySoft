@@ -18,11 +18,7 @@ class CategoryController
 
 	public function index()
 	{
-		$getCategoriesService = new GetAllCategoriesService(new CategoryRepositoryMySql());
-
-		return Response::render("categories/categories.php", [
-			'categories' => $getCategoriesService->run()
-		]);
+		return Response::render("categories/categories.php");
 	}
 
 	public function create($request)
@@ -168,6 +164,34 @@ class CategoryController
 				'data' => [
 					'active' => $active
 				]
+			], 200);
+		} catch (CustomException $e) {
+			return Response::json([
+				'error' => true,
+				'message' => $e->getMessage()
+			], $e->getHttpCode());
+		} catch (Exception $e) {
+			return Response::json([
+				'error' => true,
+				'message' => 'Ocurrio un error en el servidor.',
+				'detail' => $e->getMessage()
+			], 500);
+		}
+	}
+
+	public function datatable($request)
+	{
+		try {
+			$getCategoriesService = new GetAllCategoriesService(new CategoryRepositoryMySql());
+
+			$categories = $getCategoriesService->run();
+
+			$categories = array_map(function( $category ){
+				return $category->get();
+			} , $categories);
+
+			return Response::json([
+				'data' => $categories
 			], 200);
 		} catch (CustomException $e) {
 			return Response::json([

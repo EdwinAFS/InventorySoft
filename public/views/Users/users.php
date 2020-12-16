@@ -44,7 +44,7 @@ include "edit.php";
 			</div>
 
 			<div class="card-body">
-				<table class="table table-bordered table-striped dataTable dt-responsive w-100">
+				<table class="table table-bordered table-striped dataTable dt-responsive w-100" id="userTable">
 					<thead>
 						<tr>
 							<th>ID</th>
@@ -57,7 +57,7 @@ include "edit.php";
 						</tr>
 					</thead>
 					<tbody>
-						<?php
+						<!-- <?php
 						foreach ($users as $user) {
 							echo "
 								<tr>
@@ -86,7 +86,7 @@ include "edit.php";
 								";
 						}
 
-						?>
+						?> -->
 
 					</tbody>
 				</table>
