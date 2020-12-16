@@ -2,7 +2,6 @@
 <html>
 
 <head>
-	<base href="/inventorysoft/"/>
 
 	<?php
 		if(session_id() == '') {
