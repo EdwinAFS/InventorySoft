@@ -7,9 +7,7 @@
         }
     ],
 	"require": {
-		"almasaeed2010/adminlte": "3.0.5",
-        "components/jquery": "^3.5",
-        "components/bootstrap": "^4.5"
+		"almasaeed2010/adminlte": "3.0.5"
 	},
 	"autoload": {
 		"psr-4": {		
@@ -17,7 +15,7 @@
 			"Config\\": ["config/"],
 			"Framework\\": ["framework/"],
 			"Public\\": ["public/"],
-			"Libs\\": ["public\\libraries/"],
+			"Libs\\": ["vendor/"],
 			"Templates\\": ["templates/"],
 			"Resources\\": ["resources/"]
 		}

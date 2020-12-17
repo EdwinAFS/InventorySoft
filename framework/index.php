@@ -12,6 +12,7 @@ class FrontController
 {
 	static function run()
 	{
+
 		if (session_id() == '') {
 			session_start();
 		}
