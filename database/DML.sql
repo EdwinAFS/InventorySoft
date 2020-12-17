@@ -1,9 +1,13 @@
+
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+
 INSERT INTO 
-	rols (id, description, code, active)
-VALUES 
-	(1, 'Administrador', 'Admin', 1),
-	(2, 'Vendedor', 'Seller', 1);
-	(2, 'Administrador de inventario', 'inventoryManager', 1);
+	`rols` (`id`, `description`, `code`, `active`, `Deleted_at`) 
+VALUES
+	(1, 'Administrador', 'Admin', '1', NULL),
+	(2, 'Vendedor', 'Seller', '1', NULL),
+	(4, 'Administrador de inventario', 'InventoryManager', '1', NULL);
 	
 
 INSERT 
@@ -12,19 +16,22 @@ VALUES (
 	'c4a67fb7-6d37-4609-ab04-858eb30f050e',
 	'Admin',
 	'Admin',
-	'$2a$07$usesomesillystringforeN7/2NBfGxbAuv02IPrTFBImFJd5PJ1m',
+	'$2a$07$usesomesillystringforeOPDP9VCfaTl1aKeSkfq9n.hPkgfFeGC',
 	NULL,
 	1,
-	'2020-09-11 22:38:16',
-	'2020-09-15 00:56:40',
+	NOW(),
+	NOW(),
 	1
 );
 
 INSERT INTO 
-	paymentmethods (PaymentMethodId, description, active)
-VALUES 
-	(NULL, 'Debido', 1),
-	(NULL, 'Credito', 1),
-	(NULL, 'Efectivo', 1);
+	`paymentmethods` (`PaymentMethodId`, `Description`, `Active`, `Deleted_at`) 
+VALUES
+	(1, 'Debido', '1', NULL),
+	(2, 'Credito', '1', NULL),
+	(3, 'Efectivo', '1', NULL);
+
+COMMIT;
+
 
 	
