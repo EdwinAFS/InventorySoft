@@ -32,7 +32,7 @@ class LoginController
 
 			$response = $loginService->run(
 				$_POST["username"],
-				$_POST["password"],
+				$_POST["password"]
 			);
 
 			$findByIdService = new findByIdService(new UserRepositoryMySql());
