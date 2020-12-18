@@ -2,7 +2,6 @@
 <html>
 
 <head>
-	<!-- <base href="/inventorysoft/" /> -->
 	<base href="<?php echo BASE; ?>" />
 
 	<meta charset="utf-8">

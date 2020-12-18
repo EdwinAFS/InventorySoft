@@ -10,9 +10,10 @@
 	Config::set('storage', '../storage/');
 	Config::set('libs', '../vendor/');
 
-	Config::set('dbhost', 'HOST');
-	Config::set('dbname', 'DATABASENAME');
-	Config::set('dbusername', 'USERNAME');
-	Config::set('dbpassword', 'PASSWORD');
+	Config::set('dbhost', 'localhost');
+	Config::set('dbname', 'pos');
+	Config::set('dbusername', 'root');
+	Config::set('dbpassword', '');
 
-	define("BASE", "/Inventorysoft/");
+	define("BASE", "http://localhost/Inventorysoft/");
+

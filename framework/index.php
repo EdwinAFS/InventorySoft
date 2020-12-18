@@ -15,7 +15,13 @@ class FrontController
 
 		if (session_id() == '') {
 			session_start();
+		} 
+
+
+		if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1200)) {
+			session_destroy();
 		}
+		$_SESSION['LAST_ACTIVITY'] = time();
 
 		// verificamos que este logueado
 		$controllerName = self::getNameController();
